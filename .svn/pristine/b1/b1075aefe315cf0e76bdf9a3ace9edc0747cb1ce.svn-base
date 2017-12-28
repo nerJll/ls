@@ -1,0 +1,35 @@
+package com.aixu.service;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.aixu.bean.AixuNbfxpcl;
+import com.aixu.dao.AixuNbfxpclMapper;
+
+@Service
+public class ReformService {
+	
+	private final static Logger logger = LoggerFactory.getLogger(AixuCustomDoService.class);
+	
+	@Autowired
+	private AixuNbfxpclMapper reformDAO;
+	
+	@Transactional
+	public void saveReform(List<AixuNbfxpcl> reform) {
+		try {
+			for (int i = 0; i < reform.size(); i++) {
+				reformDAO.insertSelective(reform.get(i));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.info("<--客户处理存储出错-->");
+			e.printStackTrace();
+		}
+	}
+	
+}

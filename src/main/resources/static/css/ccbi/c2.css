@@ -1,0 +1,46 @@
+#header {
+	background-color: #333366;
+	height: 50px;
+	font-size: 22px;
+	font-weight: bold;
+	padding: 10px 5px 10px 20px;
+	color: white;
+}
+
+#header a {
+	color: white;
+}
+
+#header a:hover {
+	color: blue;
+	text-decoration: none;
+}
+
+#body {
+	background-color: #FCFCFC;
+	font-size: 15px;
+	padding: 8px 8px 8px 20px;
+}
+
+#btn1 {
+	font-size: 20px;
+	padding: 8px 8px 8px 10px;
+}
+
+table {
+	text-align: center;
+}
+
+table th {
+	text-align: center;
+}
+
+#khcl {
+	font-size: 20px;
+	padding: 8px 8px 8px 10px;
+}
+
+#fujian{
+	font-size: 20px;
+	padding: 8px 8px 8px 10px;
+}

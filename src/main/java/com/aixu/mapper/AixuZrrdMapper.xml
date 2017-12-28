@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aixu.dao.AixuZrrdMapper" >
+  <resultMap id="BaseResultMap" type="com.aixu.bean.AixuZrrd" >
+    <id column="zrrd_id" property="zrrdId" jdbcType="VARCHAR" />
+    <result column="zrrd_sfla" property="zrrdSfla" jdbcType="VARCHAR" />
+    <result column="zrrd_xh" property="zrrdXh" jdbcType="INTEGER" />
+    <result column="zrrd_zrbm" property="zrrdZrbm" jdbcType="VARCHAR" />
+    <result column="zrrd_zrr" property="zrrdZrr" jdbcType="VARCHAR" />
+    <result column="zrrd_clyj" property="zrrdClyj" jdbcType="VARCHAR" />
+    <result column="zrrd_ksgldid" property="zrrdKsgldid" jdbcType="VARCHAR" />
+    <result column="zrrd_yl1" property="zrrdYl1" jdbcType="VARCHAR" />
+    <result column="zrrd_yl2" property="zrrdYl2" jdbcType="VARCHAR" />
+    <result column="zrrd_yl3" property="zrrdYl3" jdbcType="VARCHAR" />
+    <result column="zrrd_yl4" property="zrrdYl4" jdbcType="VARCHAR" />
+    <result column="zrrd_yl5" property="zrrdYl5" jdbcType="VARCHAR" />
+    <result column="zrrd_yl6" property="zrrdYl6" jdbcType="VARCHAR" />
+    <result column="zrrd_yl7" property="zrrdYl7" jdbcType="VARCHAR" />
+    <result column="zrrd_yl8" property="zrrdYl8" jdbcType="VARCHAR" />
+    <result column="zrrd_yl9" property="zrrdYl9" jdbcType="VARCHAR" />
+    <result column="zrrd_yl10" property="zrrdYl10" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    zrrd_id, zrrd_sfla, zrrd_xh, zrrd_zrbm, zrrd_zrr, zrrd_clyj, zrrd_ksgldid, zrrd_yl1, 
+    zrrd_yl2, zrrd_yl3, zrrd_yl4, zrrd_yl5, zrrd_yl6, zrrd_yl7, zrrd_yl8, zrrd_yl9, zrrd_yl10
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aixu.bean.AixuZrrdExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aixu_zrrd
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from aixu_zrrd
+    where zrrd_id = #{zrrdId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from aixu_zrrd
+    where zrrd_id = #{zrrdId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aixu.bean.AixuZrrdExample" >
+    delete from aixu_zrrd
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aixu.bean.AixuZrrd" >
+    insert into aixu_zrrd (zrrd_id, zrrd_sfla, zrrd_xh, 
+      zrrd_zrbm, zrrd_zrr, zrrd_clyj, 
+      zrrd_ksgldid, zrrd_yl1, zrrd_yl2, 
+      zrrd_yl3, zrrd_yl4, zrrd_yl5, 
+      zrrd_yl6, zrrd_yl7, zrrd_yl8, 
+      zrrd_yl9, zrrd_yl10)
+    values (#{zrrdId,jdbcType=VARCHAR}, #{zrrdSfla,jdbcType=VARCHAR}, #{zrrdXh,jdbcType=INTEGER}, 
+      #{zrrdZrbm,jdbcType=VARCHAR}, #{zrrdZrr,jdbcType=VARCHAR}, #{zrrdClyj,jdbcType=VARCHAR}, 
+      #{zrrdKsgldid,jdbcType=VARCHAR}, #{zrrdYl1,jdbcType=VARCHAR}, #{zrrdYl2,jdbcType=VARCHAR}, 
+      #{zrrdYl3,jdbcType=VARCHAR}, #{zrrdYl4,jdbcType=VARCHAR}, #{zrrdYl5,jdbcType=VARCHAR}, 
+      #{zrrdYl6,jdbcType=VARCHAR}, #{zrrdYl7,jdbcType=VARCHAR}, #{zrrdYl8,jdbcType=VARCHAR}, 
+      #{zrrdYl9,jdbcType=VARCHAR}, #{zrrdYl10,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aixu.bean.AixuZrrd" >
+    insert into aixu_zrrd
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="zrrdId != null" >
+        zrrd_id,
+      </if>
+      <if test="zrrdSfla != null" >
+        zrrd_sfla,
+      </if>
+      <if test="zrrdXh != null" >
+        zrrd_xh,
+      </if>
+      <if test="zrrdZrbm != null" >
+        zrrd_zrbm,
+      </if>
+      <if test="zrrdZrr != null" >
+        zrrd_zrr,
+      </if>
+      <if test="zrrdClyj != null" >
+        zrrd_clyj,
+      </if>
+      <if test="zrrdKsgldid != null" >
+        zrrd_ksgldid,
+      </if>
+      <if test="zrrdYl1 != null" >
+        zrrd_yl1,
+      </if>
+      <if test="zrrdYl2 != null" >
+        zrrd_yl2,
+      </if>
+      <if test="zrrdYl3 != null" >
+        zrrd_yl3,
+      </if>
+      <if test="zrrdYl4 != null" >
+        zrrd_yl4,
+      </if>
+      <if test="zrrdYl5 != null" >
+        zrrd_yl5,
+      </if>
+      <if test="zrrdYl6 != null" >
+        zrrd_yl6,
+      </if>
+      <if test="zrrdYl7 != null" >
+        zrrd_yl7,
+      </if>
+      <if test="zrrdYl8 != null" >
+        zrrd_yl8,
+      </if>
+      <if test="zrrdYl9 != null" >
+        zrrd_yl9,
+      </if>
+      <if test="zrrdYl10 != null" >
+        zrrd_yl10,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="zrrdId != null" >
+        #{zrrdId,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdSfla != null" >
+        #{zrrdSfla,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdXh != null" >
+        #{zrrdXh,jdbcType=INTEGER},
+      </if>
+      <if test="zrrdZrbm != null" >
+        #{zrrdZrbm,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdZrr != null" >
+        #{zrrdZrr,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdClyj != null" >
+        #{zrrdClyj,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdKsgldid != null" >
+        #{zrrdKsgldid,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl1 != null" >
+        #{zrrdYl1,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl2 != null" >
+        #{zrrdYl2,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl3 != null" >
+        #{zrrdYl3,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl4 != null" >
+        #{zrrdYl4,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl5 != null" >
+        #{zrrdYl5,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl6 != null" >
+        #{zrrdYl6,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl7 != null" >
+        #{zrrdYl7,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl8 != null" >
+        #{zrrdYl8,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl9 != null" >
+        #{zrrdYl9,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl10 != null" >
+        #{zrrdYl10,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aixu.bean.AixuZrrdExample" resultType="java.lang.Integer" >
+    select count(*) from aixu_zrrd
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aixu_zrrd
+    <set >
+      <if test="record.zrrdId != null" >
+        zrrd_id = #{record.zrrdId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zrrdSfla != null" >
+        zrrd_sfla = #{record.zrrdSfla,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zrrdXh != null" >
+        zrrd_xh = #{record.zrrdXh,jdbcType=INTEGER},
+      </if>
+      <if test="record.zrrdZrbm != null" >
+        zrrd_zrbm = #{record.zrrdZrbm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zrrdZrr != null" >
+        zrrd_zrr = #{record.zrrdZrr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zrrdClyj != null" >
+        zrrd_clyj = #{record.zrrdClyj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zrrdKsgldid != null" >
+        zrrd_ksgldid = #{record.zrrdKsgldid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zrrdYl1 != null" >
+        zrrd_yl1 = #{record.zrrdYl1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zrrdYl2 != null" >
+        zrrd_yl2 = #{record.zrrdYl2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zrrdYl3 != null" >
+        zrrd_yl3 = #{record.zrrdYl3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zrrdYl4 != null" >
+        zrrd_yl4 = #{record.zrrdYl4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zrrdYl5 != null" >
+        zrrd_yl5 = #{record.zrrdYl5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zrrdYl6 != null" >
+        zrrd_yl6 = #{record.zrrdYl6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zrrdYl7 != null" >
+        zrrd_yl7 = #{record.zrrdYl7,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zrrdYl8 != null" >
+        zrrd_yl8 = #{record.zrrdYl8,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zrrdYl9 != null" >
+        zrrd_yl9 = #{record.zrrdYl9,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zrrdYl10 != null" >
+        zrrd_yl10 = #{record.zrrdYl10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aixu_zrrd
+    set zrrd_id = #{record.zrrdId,jdbcType=VARCHAR},
+      zrrd_sfla = #{record.zrrdSfla,jdbcType=VARCHAR},
+      zrrd_xh = #{record.zrrdXh,jdbcType=INTEGER},
+      zrrd_zrbm = #{record.zrrdZrbm,jdbcType=VARCHAR},
+      zrrd_zrr = #{record.zrrdZrr,jdbcType=VARCHAR},
+      zrrd_clyj = #{record.zrrdClyj,jdbcType=VARCHAR},
+      zrrd_ksgldid = #{record.zrrdKsgldid,jdbcType=VARCHAR},
+      zrrd_yl1 = #{record.zrrdYl1,jdbcType=VARCHAR},
+      zrrd_yl2 = #{record.zrrdYl2,jdbcType=VARCHAR},
+      zrrd_yl3 = #{record.zrrdYl3,jdbcType=VARCHAR},
+      zrrd_yl4 = #{record.zrrdYl4,jdbcType=VARCHAR},
+      zrrd_yl5 = #{record.zrrdYl5,jdbcType=VARCHAR},
+      zrrd_yl6 = #{record.zrrdYl6,jdbcType=VARCHAR},
+      zrrd_yl7 = #{record.zrrdYl7,jdbcType=VARCHAR},
+      zrrd_yl8 = #{record.zrrdYl8,jdbcType=VARCHAR},
+      zrrd_yl9 = #{record.zrrdYl9,jdbcType=VARCHAR},
+      zrrd_yl10 = #{record.zrrdYl10,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aixu.bean.AixuZrrd" >
+    update aixu_zrrd
+    <set >
+      <if test="zrrdSfla != null" >
+        zrrd_sfla = #{zrrdSfla,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdXh != null" >
+        zrrd_xh = #{zrrdXh,jdbcType=INTEGER},
+      </if>
+      <if test="zrrdZrbm != null" >
+        zrrd_zrbm = #{zrrdZrbm,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdZrr != null" >
+        zrrd_zrr = #{zrrdZrr,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdClyj != null" >
+        zrrd_clyj = #{zrrdClyj,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdKsgldid != null" >
+        zrrd_ksgldid = #{zrrdKsgldid,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl1 != null" >
+        zrrd_yl1 = #{zrrdYl1,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl2 != null" >
+        zrrd_yl2 = #{zrrdYl2,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl3 != null" >
+        zrrd_yl3 = #{zrrdYl3,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl4 != null" >
+        zrrd_yl4 = #{zrrdYl4,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl5 != null" >
+        zrrd_yl5 = #{zrrdYl5,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl6 != null" >
+        zrrd_yl6 = #{zrrdYl6,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl7 != null" >
+        zrrd_yl7 = #{zrrdYl7,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl8 != null" >
+        zrrd_yl8 = #{zrrdYl8,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl9 != null" >
+        zrrd_yl9 = #{zrrdYl9,jdbcType=VARCHAR},
+      </if>
+      <if test="zrrdYl10 != null" >
+        zrrd_yl10 = #{zrrdYl10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where zrrd_id = #{zrrdId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aixu.bean.AixuZrrd" >
+    update aixu_zrrd
+    set zrrd_sfla = #{zrrdSfla,jdbcType=VARCHAR},
+      zrrd_xh = #{zrrdXh,jdbcType=INTEGER},
+      zrrd_zrbm = #{zrrdZrbm,jdbcType=VARCHAR},
+      zrrd_zrr = #{zrrdZrr,jdbcType=VARCHAR},
+      zrrd_clyj = #{zrrdClyj,jdbcType=VARCHAR},
+      zrrd_ksgldid = #{zrrdKsgldid,jdbcType=VARCHAR},
+      zrrd_yl1 = #{zrrdYl1,jdbcType=VARCHAR},
+      zrrd_yl2 = #{zrrdYl2,jdbcType=VARCHAR},
+      zrrd_yl3 = #{zrrdYl3,jdbcType=VARCHAR},
+      zrrd_yl4 = #{zrrdYl4,jdbcType=VARCHAR},
+      zrrd_yl5 = #{zrrdYl5,jdbcType=VARCHAR},
+      zrrd_yl6 = #{zrrdYl6,jdbcType=VARCHAR},
+      zrrd_yl7 = #{zrrdYl7,jdbcType=VARCHAR},
+      zrrd_yl8 = #{zrrdYl8,jdbcType=VARCHAR},
+      zrrd_yl9 = #{zrrdYl9,jdbcType=VARCHAR},
+      zrrd_yl10 = #{zrrdYl10,jdbcType=VARCHAR}
+    where zrrd_id = #{zrrdId,jdbcType=VARCHAR}
+  </update>
+</mapper>

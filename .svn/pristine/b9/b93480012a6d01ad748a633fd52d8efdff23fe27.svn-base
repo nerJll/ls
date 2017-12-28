@@ -1,0 +1,236 @@
+<#assign ctx=request.contextPath />
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="renderer" content="webkit">   
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="${ctx}/ui/layui/css/layui.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/ui/easyui/themes/material/easyui.css">
+<style type="text/css">
+	.my {
+		display: flex;
+		display: -webkit-flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.my-container {
+		/*margin-left: 5px;*/
+		margin-right: 15px;
+	}
+</style>
+<title>客服管理</title>
+</head>
+<body>
+		<!--标题-->
+		<div class="layui-row my" style="background: #393D49;color: whitesmoke;height: 50px;">
+			<div class="layui-col-md10">
+				<!--&#xe606;-->
+				<h1>&nbsp;&nbsp;&nbsp;<i class="layui-icon" style="font-size: 28px;color: #00CCFF;">&#xe606;</i>&nbsp;&nbsp;客 诉 管 理</h1>
+			</div>
+			<div class="layui-col-md2">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="layui-btn layui-btn-warm" id="newTab" type="button"><i class="layui-icon" style="color: #000000;">&#xe654;</i> <span style="color: #000000;">新建客诉单</span></button>
+			</div>
+		</div>
+		<br />
+		<div class="my-container">
+		<!--查询条件-->
+		<form class="layui-form">
+			<div class="layui-row" style="margin-bottom: 2px;">
+				<!--第一行查询-->
+				<div class="layui-row">
+					<div class="layui-form-item" style="margin-bottom: 15px;">
+						<div class="layui-col-md1">
+							<label class="layui-form-label">客户名称：</label>
+						</div>
+						<div class="layui-col-md3">
+							<select id="customName" name="customName" lay-verify="required" lay-search lay-filter="customName">
+								<option value="">请选择</option>
+							</select>
+						</div>
+						<div class="layui-col-md1">
+							<label class="layui-form-label">客户编码：</label>
+						</div>
+						<div class="layui-col-md3">
+							<input id="customNo" type="text" name="customNo" class="layui-input" readonly>
+						</div>
+						<div class="layui-col-md1">
+							<label class="layui-form-label">产品型号：</label>
+						</div>
+						<div class="layui-col-md3">
+							<select id="productType" name="productType" lay-verify="required" lay-search>
+								<option value="">请选择</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<!--第二行查询-->
+				<div class="layui-row">
+					<div class="layui-form-item" style="margin-bottom: 2px;">
+						<div class="layui-col-md1">
+							<label class="layui-form-label">责任工厂：</label>
+						</div>
+						<div class="layui-col-md3">
+							<select id="dutyFactory" name="dutyFactory" lay-verify="required">
+								<option value="">请选择</option>
+								<option value="浙江爱旭">浙江爱旭</option>						
+								<option value="广东爱旭">广东爱旭</option>						
+							</select>
+						</div>
+						<div class="layui-col-md1">
+							<label class="layui-form-label">投诉日期：</label>
+						</div>
+						<div class="layui-col-md3">
+							<input type="text" class="layui-input" id="dateRange" placeholder="请选择日期范围" readonly>
+						</div>
+						
+						<div class="layui-col-md1">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="layui-btn layui-btn-normal" id="mySearch" type="button"><i class="layui-icon">&#xe615;</i> 搜索</button>
+						</div>
+						<div class="layui-col-md1">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="layui-btn layui-btn-danger" type="reset"><i class="layui-icon">&#x1006;</i> 重置</button>
+						</div>
+						<div class="layui-col-md2">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="layui-btn" id="myExcel" type="reset"><i class="layui-icon">&#xe62d;</i> 导出Excel</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		</div>
+		<!--查询与内容-->
+		<br />
+		<div class="layui-row" style="margin-left: 25px;">
+			<table id="myTable" title="客诉单表格" style="width: 1316px;height: 450px"></table>
+		</div>
+		<div id="detail" class="easyui-window" title="客诉详情" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:700px;height:420px;padding:10px;">
+			<table class="layui-table" lay-skin="line"></table>
+			<br />
+			<div class="my">
+				<div id="chartx" style="width:280px;height:280px;"></div>
+			</div>
+		</div>
+	<script type="text/javascript" src="${ctx}/js/jquery/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="${ctx}/js/common.js"></script>
+	<script type="text/javascript" src="${ctx}/ui/layui/layui.all.js"></script>
+	<script type="text/javascript" src="${ctx}/ui/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="${ctx}/ui/easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script src="https://cdn.bootcss.com/require.js/2.3.5/require.min.js"></script>
+    <script src="http://g.alicdn.com//thx/charts/1.9.51/chartx/index-min.js"></script>
+	<script type="text/javascript" src="${ctx}/js/index/index.js"></script>
+	<script type="text/javascript">
+		var form = layui.form;
+		// 渲染日期控件
+		layui.use('laydate', function(){
+	  		var laydate = layui.laydate;
+			laydate.render({
+			  elem: '#dateRange',
+			  theme: '#393D49',
+			  range: true
+			});
+		});
+		
+		// 渲染表格控件
+		$('#myTable').datagrid({
+			method:'get',
+			url: propath() + '/lawsuit/list-all',
+			pagination:true,
+			pageSize:20,
+			rownumbers: true,
+			singleSelect: true,
+			striped: true,
+			columns : [ [ 
+				{field: 'id', hidden: true},
+				{field: 'lawsuitNo', title: '客诉单编码', width: 100, align: 'center'},
+				{field: 'customName', title: '客户名称', width: 100, align: 'center'},
+			    {field: 'customNo', title: '客户编码', width: 100, align: 'center'},
+			    {field: 'productType', title: '产品型号', width: 100, align: 'center'},
+			    {field: 'isNeedRep', title: '客户是否需要报告', width: 150, align: 'center'},
+			    {field: 'complainMount', title: '投诉数量', width: 100, align: 'center'},
+			    {field: 'complainDate', title: '投诉日期', width: 100, align: 'center'},
+			    {field: 'customState', title: '客户处理状态', width: 100, align: 'center', formatter: statusFormat},
+			    {field: 'dangerousGoodsState', title: '风险品处理状态', width: 100, align: 'center',formatter: statusFormat},
+			    {field: 'reformState', title: '整改状态', width: 80, align: 'center',formatter: statusFormat},
+			    {field: 'dutyState', title: '责任认定状态', width: 140, align: 'center',formatter: statusFormat}
+			] ],
+			frozenColumns:[ [ 
+				{field: '_operate', title: '操作', width: 100, align: 'center',formatter: formatOper}
+			] ],
+			onDblClickRow: function (index, row) { // 双击AJax查询事件
+				$.ajax({
+					type: 'GET',
+					url: propath() + '/lawsuit/get/' + row.id,
+					async: true,
+					beforeSend: function () {
+						ii = layer.load(1, {shade: [0.1,'#fff']})
+					},
+					success: function (data) {
+						var tpl = ''
+						for (i in data.bean.zd1s) {
+							tpl += '<tr>'+
+										'<td>客诉类型:</td>' +
+										'<td>' + data.bean.zd1s[i].lawsuitTpye + '</td>' +
+										'<td>客诉详情:</td>' +
+										'<td>' + data.bean.zd1s[i].lawsuitTpyeDetail + '</td>' +
+										'<td>投诉数量:</td>' +
+										'<td>' + data.bean.zd1s[i].complainMount + '</td>' +
+									'</tr>'
+						}
+						var $ul = $('#detail').find('table')
+						$ul.empty().append(tpl) // 先清空后填充
+						// 图形化
+						$('#chartx').empty()
+						var option = {
+							innerRadius: 45,
+							animation: true
+						}
+						Chartx.pie('chartx', data.charData, option);
+					},
+					complete: function () {
+						layer.close(ii)
+					}
+				});
+				$('#detail').window('open') // 触发模态框
+			}
+		})
+		
+		// 页面加载
+		$(function () {
+			// 客户名称
+			$.ajax({
+				type: 'GET',
+				url: 'http://portal.aikosolar.com/aiko-crm/sapconfig/execute?functionCode=ZSDCRM005',
+				async: true,
+				success: function (data) {
+					var tpl = ''
+					for (let i = 0; i < data.data.result.length; i++) {
+						tpl += '<option value=' + data.data.result[i].code + '>' + data.data.result[i].name + '</option>'
+					}
+					$('#customName').append(tpl)
+					form.render()
+				}
+			});
+			// 产品型号
+			$.ajax({
+				type: 'GET',
+				url: 'http://portal.aikosolar.com/aiko-crm/sapconfig/execute?functionCode=ZSDCRM004',
+				async: true,
+				success: function (data) {
+					var tpl = ''
+					for (let i = 0; i < data.data.result.length; i++) {
+						tpl += '<option value=' + data.data.result[i].code + '>' + data.data.result[i].name + '</option>'
+					}
+					$('#productType').append(tpl)
+					form.render()
+				}
+			});
+		})
+		
+		// 监听值改变
+		form.on('select(customName)', function(data){
+		    $('#customNo').val(data.value)
+		});
+	</script>
+</body>
+</html>

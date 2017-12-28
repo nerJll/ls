@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aixu.dao.AixuCustomDoMapper" >
+  <resultMap id="BaseResultMap" type="com.aixu.bean.AixuCustomDo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="custom_reduce" property="customReduce" jdbcType="VARCHAR" />
+    <result column="custom_mount" property="customMount" jdbcType="INTEGER" />
+    <result column="judge_reduce" property="judgeReduce" jdbcType="VARCHAR" />
+    <result column="judge_mount" property="judgeMount" jdbcType="INTEGER" />
+    <result column="plan_date" property="planDate" jdbcType="DATE" />
+    <result column="oqc_judge" property="oqcJudge" jdbcType="VARCHAR" />
+    <result column="oqc_result" property="oqcResult" jdbcType="VARCHAR" />
+    <result column="handle_state" property="handleState" jdbcType="VARCHAR" />
+    <result column="base_id" property="baseId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="res_one" property="resOne" jdbcType="VARCHAR" />
+    <result column="res_two" property="resTwo" jdbcType="VARCHAR" />
+    <result column="res_three" property="resThree" jdbcType="VARCHAR" />
+    <result column="res_four" property="resFour" jdbcType="VARCHAR" />
+    <result column="res_five" property="resFive" jdbcType="VARCHAR" />
+    <result column="res_six" property="resSix" jdbcType="VARCHAR" />
+    <result column="res_seven" property="resSeven" jdbcType="VARCHAR" />
+    <result column="res_eight" property="resEight" jdbcType="VARCHAR" />
+    <result column="res_nine" property="resNine" jdbcType="VARCHAR" />
+    <result column="res_ten" property="resTen" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, type, custom_reduce, custom_mount, judge_reduce, judge_mount, plan_date, oqc_judge, 
+    oqc_result, handle_state, base_id, create_time, res_one, res_two, res_three, res_four, 
+    res_five, res_six, res_seven, res_eight, res_nine, res_ten
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aixu.bean.AixuCustomDoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aixu_custom_do
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from aixu_custom_do
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from aixu_custom_do
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aixu.bean.AixuCustomDoExample" >
+    delete from aixu_custom_do
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aixu.bean.AixuCustomDo" >
+    insert into aixu_custom_do (id, type, custom_reduce, 
+      custom_mount, judge_reduce, judge_mount, 
+      plan_date, oqc_judge, oqc_result, 
+      handle_state, base_id, create_time, 
+      res_one, res_two, res_three, 
+      res_four, res_five, res_six, 
+      res_seven, res_eight, res_nine, 
+      res_ten)
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{customReduce,jdbcType=VARCHAR}, 
+      #{customMount,jdbcType=INTEGER}, #{judgeReduce,jdbcType=VARCHAR}, #{judgeMount,jdbcType=INTEGER}, 
+      #{planDate,jdbcType=DATE}, #{oqcJudge,jdbcType=VARCHAR}, #{oqcResult,jdbcType=VARCHAR}, 
+      #{handleState,jdbcType=VARCHAR}, #{baseId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{resOne,jdbcType=VARCHAR}, #{resTwo,jdbcType=VARCHAR}, #{resThree,jdbcType=VARCHAR}, 
+      #{resFour,jdbcType=VARCHAR}, #{resFive,jdbcType=VARCHAR}, #{resSix,jdbcType=VARCHAR}, 
+      #{resSeven,jdbcType=VARCHAR}, #{resEight,jdbcType=VARCHAR}, #{resNine,jdbcType=VARCHAR}, 
+      #{resTen,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aixu.bean.AixuCustomDo" >
+    insert into aixu_custom_do
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="customReduce != null" >
+        custom_reduce,
+      </if>
+      <if test="customMount != null" >
+        custom_mount,
+      </if>
+      <if test="judgeReduce != null" >
+        judge_reduce,
+      </if>
+      <if test="judgeMount != null" >
+        judge_mount,
+      </if>
+      <if test="planDate != null" >
+        plan_date,
+      </if>
+      <if test="oqcJudge != null" >
+        oqc_judge,
+      </if>
+      <if test="oqcResult != null" >
+        oqc_result,
+      </if>
+      <if test="handleState != null" >
+        handle_state,
+      </if>
+      <if test="baseId != null" >
+        base_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="resOne != null" >
+        res_one,
+      </if>
+      <if test="resTwo != null" >
+        res_two,
+      </if>
+      <if test="resThree != null" >
+        res_three,
+      </if>
+      <if test="resFour != null" >
+        res_four,
+      </if>
+      <if test="resFive != null" >
+        res_five,
+      </if>
+      <if test="resSix != null" >
+        res_six,
+      </if>
+      <if test="resSeven != null" >
+        res_seven,
+      </if>
+      <if test="resEight != null" >
+        res_eight,
+      </if>
+      <if test="resNine != null" >
+        res_nine,
+      </if>
+      <if test="resTen != null" >
+        res_ten,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="customReduce != null" >
+        #{customReduce,jdbcType=VARCHAR},
+      </if>
+      <if test="customMount != null" >
+        #{customMount,jdbcType=INTEGER},
+      </if>
+      <if test="judgeReduce != null" >
+        #{judgeReduce,jdbcType=VARCHAR},
+      </if>
+      <if test="judgeMount != null" >
+        #{judgeMount,jdbcType=INTEGER},
+      </if>
+      <if test="planDate != null" >
+        #{planDate,jdbcType=DATE},
+      </if>
+      <if test="oqcJudge != null" >
+        #{oqcJudge,jdbcType=VARCHAR},
+      </if>
+      <if test="oqcResult != null" >
+        #{oqcResult,jdbcType=VARCHAR},
+      </if>
+      <if test="handleState != null" >
+        #{handleState,jdbcType=VARCHAR},
+      </if>
+      <if test="baseId != null" >
+        #{baseId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resOne != null" >
+        #{resOne,jdbcType=VARCHAR},
+      </if>
+      <if test="resTwo != null" >
+        #{resTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="resThree != null" >
+        #{resThree,jdbcType=VARCHAR},
+      </if>
+      <if test="resFour != null" >
+        #{resFour,jdbcType=VARCHAR},
+      </if>
+      <if test="resFive != null" >
+        #{resFive,jdbcType=VARCHAR},
+      </if>
+      <if test="resSix != null" >
+        #{resSix,jdbcType=VARCHAR},
+      </if>
+      <if test="resSeven != null" >
+        #{resSeven,jdbcType=VARCHAR},
+      </if>
+      <if test="resEight != null" >
+        #{resEight,jdbcType=VARCHAR},
+      </if>
+      <if test="resNine != null" >
+        #{resNine,jdbcType=VARCHAR},
+      </if>
+      <if test="resTen != null" >
+        #{resTen,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aixu.bean.AixuCustomDoExample" resultType="java.lang.Integer" >
+    select count(*) from aixu_custom_do
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aixu_custom_do
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customReduce != null" >
+        custom_reduce = #{record.customReduce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customMount != null" >
+        custom_mount = #{record.customMount,jdbcType=INTEGER},
+      </if>
+      <if test="record.judgeReduce != null" >
+        judge_reduce = #{record.judgeReduce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.judgeMount != null" >
+        judge_mount = #{record.judgeMount,jdbcType=INTEGER},
+      </if>
+      <if test="record.planDate != null" >
+        plan_date = #{record.planDate,jdbcType=DATE},
+      </if>
+      <if test="record.oqcJudge != null" >
+        oqc_judge = #{record.oqcJudge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oqcResult != null" >
+        oqc_result = #{record.oqcResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.handleState != null" >
+        handle_state = #{record.handleState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.baseId != null" >
+        base_id = #{record.baseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.resOne != null" >
+        res_one = #{record.resOne,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resTwo != null" >
+        res_two = #{record.resTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resThree != null" >
+        res_three = #{record.resThree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resFour != null" >
+        res_four = #{record.resFour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resFive != null" >
+        res_five = #{record.resFive,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resSix != null" >
+        res_six = #{record.resSix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resSeven != null" >
+        res_seven = #{record.resSeven,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resEight != null" >
+        res_eight = #{record.resEight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resNine != null" >
+        res_nine = #{record.resNine,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resTen != null" >
+        res_ten = #{record.resTen,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aixu_custom_do
+    set id = #{record.id,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=VARCHAR},
+      custom_reduce = #{record.customReduce,jdbcType=VARCHAR},
+      custom_mount = #{record.customMount,jdbcType=INTEGER},
+      judge_reduce = #{record.judgeReduce,jdbcType=VARCHAR},
+      judge_mount = #{record.judgeMount,jdbcType=INTEGER},
+      plan_date = #{record.planDate,jdbcType=DATE},
+      oqc_judge = #{record.oqcJudge,jdbcType=VARCHAR},
+      oqc_result = #{record.oqcResult,jdbcType=VARCHAR},
+      handle_state = #{record.handleState,jdbcType=VARCHAR},
+      base_id = #{record.baseId,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      res_one = #{record.resOne,jdbcType=VARCHAR},
+      res_two = #{record.resTwo,jdbcType=VARCHAR},
+      res_three = #{record.resThree,jdbcType=VARCHAR},
+      res_four = #{record.resFour,jdbcType=VARCHAR},
+      res_five = #{record.resFive,jdbcType=VARCHAR},
+      res_six = #{record.resSix,jdbcType=VARCHAR},
+      res_seven = #{record.resSeven,jdbcType=VARCHAR},
+      res_eight = #{record.resEight,jdbcType=VARCHAR},
+      res_nine = #{record.resNine,jdbcType=VARCHAR},
+      res_ten = #{record.resTen,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aixu.bean.AixuCustomDo" >
+    update aixu_custom_do
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="customReduce != null" >
+        custom_reduce = #{customReduce,jdbcType=VARCHAR},
+      </if>
+      <if test="customMount != null" >
+        custom_mount = #{customMount,jdbcType=INTEGER},
+      </if>
+      <if test="judgeReduce != null" >
+        judge_reduce = #{judgeReduce,jdbcType=VARCHAR},
+      </if>
+      <if test="judgeMount != null" >
+        judge_mount = #{judgeMount,jdbcType=INTEGER},
+      </if>
+      <if test="planDate != null" >
+        plan_date = #{planDate,jdbcType=DATE},
+      </if>
+      <if test="oqcJudge != null" >
+        oqc_judge = #{oqcJudge,jdbcType=VARCHAR},
+      </if>
+      <if test="oqcResult != null" >
+        oqc_result = #{oqcResult,jdbcType=VARCHAR},
+      </if>
+      <if test="handleState != null" >
+        handle_state = #{handleState,jdbcType=VARCHAR},
+      </if>
+      <if test="baseId != null" >
+        base_id = #{baseId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resOne != null" >
+        res_one = #{resOne,jdbcType=VARCHAR},
+      </if>
+      <if test="resTwo != null" >
+        res_two = #{resTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="resThree != null" >
+        res_three = #{resThree,jdbcType=VARCHAR},
+      </if>
+      <if test="resFour != null" >
+        res_four = #{resFour,jdbcType=VARCHAR},
+      </if>
+      <if test="resFive != null" >
+        res_five = #{resFive,jdbcType=VARCHAR},
+      </if>
+      <if test="resSix != null" >
+        res_six = #{resSix,jdbcType=VARCHAR},
+      </if>
+      <if test="resSeven != null" >
+        res_seven = #{resSeven,jdbcType=VARCHAR},
+      </if>
+      <if test="resEight != null" >
+        res_eight = #{resEight,jdbcType=VARCHAR},
+      </if>
+      <if test="resNine != null" >
+        res_nine = #{resNine,jdbcType=VARCHAR},
+      </if>
+      <if test="resTen != null" >
+        res_ten = #{resTen,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aixu.bean.AixuCustomDo" >
+    update aixu_custom_do
+    set type = #{type,jdbcType=VARCHAR},
+      custom_reduce = #{customReduce,jdbcType=VARCHAR},
+      custom_mount = #{customMount,jdbcType=INTEGER},
+      judge_reduce = #{judgeReduce,jdbcType=VARCHAR},
+      judge_mount = #{judgeMount,jdbcType=INTEGER},
+      plan_date = #{planDate,jdbcType=DATE},
+      oqc_judge = #{oqcJudge,jdbcType=VARCHAR},
+      oqc_result = #{oqcResult,jdbcType=VARCHAR},
+      handle_state = #{handleState,jdbcType=VARCHAR},
+      base_id = #{baseId,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      res_one = #{resOne,jdbcType=VARCHAR},
+      res_two = #{resTwo,jdbcType=VARCHAR},
+      res_three = #{resThree,jdbcType=VARCHAR},
+      res_four = #{resFour,jdbcType=VARCHAR},
+      res_five = #{resFive,jdbcType=VARCHAR},
+      res_six = #{resSix,jdbcType=VARCHAR},
+      res_seven = #{resSeven,jdbcType=VARCHAR},
+      res_eight = #{resEight,jdbcType=VARCHAR},
+      res_nine = #{resNine,jdbcType=VARCHAR},
+      res_ten = #{resTen,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

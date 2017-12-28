@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aixu.dao.AixuNbfxpclMapper" >
+  <resultMap id="BaseResultMap" type="com.aixu.bean.AixuNbfxpcl" >
+    <id column="nbfxpcl_id" property="nbfxpclId" jdbcType="VARCHAR" />
+    <result column="nbfxpcl_pl" property="nbfxpclPl" jdbcType="VARCHAR" />
+    <result column="nbfxpcl_xh" property="nbfxpclXh" jdbcType="VARCHAR" />
+    <result column="nbfxpcl_sl" property="nbfxpclSl" jdbcType="INTEGER" />
+    <result column="nbfxpcl_kw" property="nbfxpclKw" jdbcType="VARCHAR" />
+    <result column="nbfxpcl_clyj" property="nbfxpclClyj" jdbcType="VARCHAR" />
+    <result column="nbfxpcl_rdbm" property="nbfxpclRdbm" jdbcType="VARCHAR" />
+    <result column="nbfxpcl_cljg" property="nbfxpclCljg" jdbcType="VARCHAR" />
+    <result column="nbfxpcl_clbm" property="nbfxpclClbm" jdbcType="VARCHAR" />
+    <result column="nbfxpcl_zt" property="nbfxpclZt" jdbcType="VARCHAR" />
+    <result column="nbfxpcl_ksgldid" property="nbfxpclKsgldid" jdbcType="VARCHAR" />
+    <result column="nbfxpcl_yl1" property="nbfxpclYl1" jdbcType="VARCHAR" />
+    <result column="nbfxpcl_yl2" property="nbfxpclYl2" jdbcType="VARCHAR" />
+    <result column="nbfxpcl_yl3" property="nbfxpclYl3" jdbcType="VARCHAR" />
+    <result column="nbfxpcl_yl4" property="nbfxpclYl4" jdbcType="VARCHAR" />
+    <result column="nbfxpcl_yl5" property="nbfxpclYl5" jdbcType="VARCHAR" />
+    <result column="nbfxpcl_yl6" property="nbfxpclYl6" jdbcType="VARCHAR" />
+    <result column="nbfxpcl_yl7" property="nbfxpclYl7" jdbcType="VARCHAR" />
+    <result column="nbfxpcl_yl8" property="nbfxpclYl8" jdbcType="VARCHAR" />
+    <result column="nbfxpcl_yl9" property="nbfxpclYl9" jdbcType="VARCHAR" />
+    <result column="nbfxpcl_yl10" property="nbfxpclYl10" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    nbfxpcl_id, nbfxpcl_pl, nbfxpcl_xh, nbfxpcl_sl, nbfxpcl_kw, nbfxpcl_clyj, nbfxpcl_rdbm, 
+    nbfxpcl_cljg, nbfxpcl_clbm, nbfxpcl_zt, nbfxpcl_ksgldid, nbfxpcl_yl1, nbfxpcl_yl2, 
+    nbfxpcl_yl3, nbfxpcl_yl4, nbfxpcl_yl5, nbfxpcl_yl6, nbfxpcl_yl7, nbfxpcl_yl8, nbfxpcl_yl9, 
+    nbfxpcl_yl10
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aixu.bean.AixuNbfxpclExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aixu_nbfxpcl
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from aixu_nbfxpcl
+    where nbfxpcl_id = #{nbfxpclId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from aixu_nbfxpcl
+    where nbfxpcl_id = #{nbfxpclId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aixu.bean.AixuNbfxpclExample" >
+    delete from aixu_nbfxpcl
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aixu.bean.AixuNbfxpcl" >
+    insert into aixu_nbfxpcl (nbfxpcl_id, nbfxpcl_pl, nbfxpcl_xh, 
+      nbfxpcl_sl, nbfxpcl_kw, nbfxpcl_clyj, 
+      nbfxpcl_rdbm, nbfxpcl_cljg, nbfxpcl_clbm, 
+      nbfxpcl_zt, nbfxpcl_ksgldid, nbfxpcl_yl1, 
+      nbfxpcl_yl2, nbfxpcl_yl3, nbfxpcl_yl4, 
+      nbfxpcl_yl5, nbfxpcl_yl6, nbfxpcl_yl7, 
+      nbfxpcl_yl8, nbfxpcl_yl9, nbfxpcl_yl10
+      )
+    values (#{nbfxpclId,jdbcType=VARCHAR}, #{nbfxpclPl,jdbcType=VARCHAR}, #{nbfxpclXh,jdbcType=VARCHAR}, 
+      #{nbfxpclSl,jdbcType=INTEGER}, #{nbfxpclKw,jdbcType=VARCHAR}, #{nbfxpclClyj,jdbcType=VARCHAR}, 
+      #{nbfxpclRdbm,jdbcType=VARCHAR}, #{nbfxpclCljg,jdbcType=VARCHAR}, #{nbfxpclClbm,jdbcType=VARCHAR}, 
+      #{nbfxpclZt,jdbcType=VARCHAR}, #{nbfxpclKsgldid,jdbcType=VARCHAR}, #{nbfxpclYl1,jdbcType=VARCHAR}, 
+      #{nbfxpclYl2,jdbcType=VARCHAR}, #{nbfxpclYl3,jdbcType=VARCHAR}, #{nbfxpclYl4,jdbcType=VARCHAR}, 
+      #{nbfxpclYl5,jdbcType=VARCHAR}, #{nbfxpclYl6,jdbcType=VARCHAR}, #{nbfxpclYl7,jdbcType=VARCHAR}, 
+      #{nbfxpclYl8,jdbcType=VARCHAR}, #{nbfxpclYl9,jdbcType=VARCHAR}, #{nbfxpclYl10,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aixu.bean.AixuNbfxpcl" >
+    insert into aixu_nbfxpcl
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nbfxpclId != null" >
+        nbfxpcl_id,
+      </if>
+      <if test="nbfxpclPl != null" >
+        nbfxpcl_pl,
+      </if>
+      <if test="nbfxpclXh != null" >
+        nbfxpcl_xh,
+      </if>
+      <if test="nbfxpclSl != null" >
+        nbfxpcl_sl,
+      </if>
+      <if test="nbfxpclKw != null" >
+        nbfxpcl_kw,
+      </if>
+      <if test="nbfxpclClyj != null" >
+        nbfxpcl_clyj,
+      </if>
+      <if test="nbfxpclRdbm != null" >
+        nbfxpcl_rdbm,
+      </if>
+      <if test="nbfxpclCljg != null" >
+        nbfxpcl_cljg,
+      </if>
+      <if test="nbfxpclClbm != null" >
+        nbfxpcl_clbm,
+      </if>
+      <if test="nbfxpclZt != null" >
+        nbfxpcl_zt,
+      </if>
+      <if test="nbfxpclKsgldid != null" >
+        nbfxpcl_ksgldid,
+      </if>
+      <if test="nbfxpclYl1 != null" >
+        nbfxpcl_yl1,
+      </if>
+      <if test="nbfxpclYl2 != null" >
+        nbfxpcl_yl2,
+      </if>
+      <if test="nbfxpclYl3 != null" >
+        nbfxpcl_yl3,
+      </if>
+      <if test="nbfxpclYl4 != null" >
+        nbfxpcl_yl4,
+      </if>
+      <if test="nbfxpclYl5 != null" >
+        nbfxpcl_yl5,
+      </if>
+      <if test="nbfxpclYl6 != null" >
+        nbfxpcl_yl6,
+      </if>
+      <if test="nbfxpclYl7 != null" >
+        nbfxpcl_yl7,
+      </if>
+      <if test="nbfxpclYl8 != null" >
+        nbfxpcl_yl8,
+      </if>
+      <if test="nbfxpclYl9 != null" >
+        nbfxpcl_yl9,
+      </if>
+      <if test="nbfxpclYl10 != null" >
+        nbfxpcl_yl10,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nbfxpclId != null" >
+        #{nbfxpclId,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclPl != null" >
+        #{nbfxpclPl,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclXh != null" >
+        #{nbfxpclXh,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclSl != null" >
+        #{nbfxpclSl,jdbcType=INTEGER},
+      </if>
+      <if test="nbfxpclKw != null" >
+        #{nbfxpclKw,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclClyj != null" >
+        #{nbfxpclClyj,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclRdbm != null" >
+        #{nbfxpclRdbm,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclCljg != null" >
+        #{nbfxpclCljg,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclClbm != null" >
+        #{nbfxpclClbm,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclZt != null" >
+        #{nbfxpclZt,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclKsgldid != null" >
+        #{nbfxpclKsgldid,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl1 != null" >
+        #{nbfxpclYl1,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl2 != null" >
+        #{nbfxpclYl2,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl3 != null" >
+        #{nbfxpclYl3,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl4 != null" >
+        #{nbfxpclYl4,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl5 != null" >
+        #{nbfxpclYl5,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl6 != null" >
+        #{nbfxpclYl6,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl7 != null" >
+        #{nbfxpclYl7,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl8 != null" >
+        #{nbfxpclYl8,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl9 != null" >
+        #{nbfxpclYl9,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl10 != null" >
+        #{nbfxpclYl10,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aixu.bean.AixuNbfxpclExample" resultType="java.lang.Integer" >
+    select count(*) from aixu_nbfxpcl
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aixu_nbfxpcl
+    <set >
+      <if test="record.nbfxpclId != null" >
+        nbfxpcl_id = #{record.nbfxpclId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbfxpclPl != null" >
+        nbfxpcl_pl = #{record.nbfxpclPl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbfxpclXh != null" >
+        nbfxpcl_xh = #{record.nbfxpclXh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbfxpclSl != null" >
+        nbfxpcl_sl = #{record.nbfxpclSl,jdbcType=INTEGER},
+      </if>
+      <if test="record.nbfxpclKw != null" >
+        nbfxpcl_kw = #{record.nbfxpclKw,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbfxpclClyj != null" >
+        nbfxpcl_clyj = #{record.nbfxpclClyj,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbfxpclRdbm != null" >
+        nbfxpcl_rdbm = #{record.nbfxpclRdbm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbfxpclCljg != null" >
+        nbfxpcl_cljg = #{record.nbfxpclCljg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbfxpclClbm != null" >
+        nbfxpcl_clbm = #{record.nbfxpclClbm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbfxpclZt != null" >
+        nbfxpcl_zt = #{record.nbfxpclZt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbfxpclKsgldid != null" >
+        nbfxpcl_ksgldid = #{record.nbfxpclKsgldid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbfxpclYl1 != null" >
+        nbfxpcl_yl1 = #{record.nbfxpclYl1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbfxpclYl2 != null" >
+        nbfxpcl_yl2 = #{record.nbfxpclYl2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbfxpclYl3 != null" >
+        nbfxpcl_yl3 = #{record.nbfxpclYl3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbfxpclYl4 != null" >
+        nbfxpcl_yl4 = #{record.nbfxpclYl4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbfxpclYl5 != null" >
+        nbfxpcl_yl5 = #{record.nbfxpclYl5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbfxpclYl6 != null" >
+        nbfxpcl_yl6 = #{record.nbfxpclYl6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbfxpclYl7 != null" >
+        nbfxpcl_yl7 = #{record.nbfxpclYl7,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbfxpclYl8 != null" >
+        nbfxpcl_yl8 = #{record.nbfxpclYl8,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbfxpclYl9 != null" >
+        nbfxpcl_yl9 = #{record.nbfxpclYl9,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbfxpclYl10 != null" >
+        nbfxpcl_yl10 = #{record.nbfxpclYl10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aixu_nbfxpcl
+    set nbfxpcl_id = #{record.nbfxpclId,jdbcType=VARCHAR},
+      nbfxpcl_pl = #{record.nbfxpclPl,jdbcType=VARCHAR},
+      nbfxpcl_xh = #{record.nbfxpclXh,jdbcType=VARCHAR},
+      nbfxpcl_sl = #{record.nbfxpclSl,jdbcType=INTEGER},
+      nbfxpcl_kw = #{record.nbfxpclKw,jdbcType=VARCHAR},
+      nbfxpcl_clyj = #{record.nbfxpclClyj,jdbcType=VARCHAR},
+      nbfxpcl_rdbm = #{record.nbfxpclRdbm,jdbcType=VARCHAR},
+      nbfxpcl_cljg = #{record.nbfxpclCljg,jdbcType=VARCHAR},
+      nbfxpcl_clbm = #{record.nbfxpclClbm,jdbcType=VARCHAR},
+      nbfxpcl_zt = #{record.nbfxpclZt,jdbcType=VARCHAR},
+      nbfxpcl_ksgldid = #{record.nbfxpclKsgldid,jdbcType=VARCHAR},
+      nbfxpcl_yl1 = #{record.nbfxpclYl1,jdbcType=VARCHAR},
+      nbfxpcl_yl2 = #{record.nbfxpclYl2,jdbcType=VARCHAR},
+      nbfxpcl_yl3 = #{record.nbfxpclYl3,jdbcType=VARCHAR},
+      nbfxpcl_yl4 = #{record.nbfxpclYl4,jdbcType=VARCHAR},
+      nbfxpcl_yl5 = #{record.nbfxpclYl5,jdbcType=VARCHAR},
+      nbfxpcl_yl6 = #{record.nbfxpclYl6,jdbcType=VARCHAR},
+      nbfxpcl_yl7 = #{record.nbfxpclYl7,jdbcType=VARCHAR},
+      nbfxpcl_yl8 = #{record.nbfxpclYl8,jdbcType=VARCHAR},
+      nbfxpcl_yl9 = #{record.nbfxpclYl9,jdbcType=VARCHAR},
+      nbfxpcl_yl10 = #{record.nbfxpclYl10,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aixu.bean.AixuNbfxpcl" >
+    update aixu_nbfxpcl
+    <set >
+      <if test="nbfxpclPl != null" >
+        nbfxpcl_pl = #{nbfxpclPl,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclXh != null" >
+        nbfxpcl_xh = #{nbfxpclXh,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclSl != null" >
+        nbfxpcl_sl = #{nbfxpclSl,jdbcType=INTEGER},
+      </if>
+      <if test="nbfxpclKw != null" >
+        nbfxpcl_kw = #{nbfxpclKw,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclClyj != null" >
+        nbfxpcl_clyj = #{nbfxpclClyj,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclRdbm != null" >
+        nbfxpcl_rdbm = #{nbfxpclRdbm,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclCljg != null" >
+        nbfxpcl_cljg = #{nbfxpclCljg,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclClbm != null" >
+        nbfxpcl_clbm = #{nbfxpclClbm,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclZt != null" >
+        nbfxpcl_zt = #{nbfxpclZt,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclKsgldid != null" >
+        nbfxpcl_ksgldid = #{nbfxpclKsgldid,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl1 != null" >
+        nbfxpcl_yl1 = #{nbfxpclYl1,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl2 != null" >
+        nbfxpcl_yl2 = #{nbfxpclYl2,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl3 != null" >
+        nbfxpcl_yl3 = #{nbfxpclYl3,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl4 != null" >
+        nbfxpcl_yl4 = #{nbfxpclYl4,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl5 != null" >
+        nbfxpcl_yl5 = #{nbfxpclYl5,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl6 != null" >
+        nbfxpcl_yl6 = #{nbfxpclYl6,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl7 != null" >
+        nbfxpcl_yl7 = #{nbfxpclYl7,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl8 != null" >
+        nbfxpcl_yl8 = #{nbfxpclYl8,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl9 != null" >
+        nbfxpcl_yl9 = #{nbfxpclYl9,jdbcType=VARCHAR},
+      </if>
+      <if test="nbfxpclYl10 != null" >
+        nbfxpcl_yl10 = #{nbfxpclYl10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where nbfxpcl_id = #{nbfxpclId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aixu.bean.AixuNbfxpcl" >
+    update aixu_nbfxpcl
+    set nbfxpcl_pl = #{nbfxpclPl,jdbcType=VARCHAR},
+      nbfxpcl_xh = #{nbfxpclXh,jdbcType=VARCHAR},
+      nbfxpcl_sl = #{nbfxpclSl,jdbcType=INTEGER},
+      nbfxpcl_kw = #{nbfxpclKw,jdbcType=VARCHAR},
+      nbfxpcl_clyj = #{nbfxpclClyj,jdbcType=VARCHAR},
+      nbfxpcl_rdbm = #{nbfxpclRdbm,jdbcType=VARCHAR},
+      nbfxpcl_cljg = #{nbfxpclCljg,jdbcType=VARCHAR},
+      nbfxpcl_clbm = #{nbfxpclClbm,jdbcType=VARCHAR},
+      nbfxpcl_zt = #{nbfxpclZt,jdbcType=VARCHAR},
+      nbfxpcl_ksgldid = #{nbfxpclKsgldid,jdbcType=VARCHAR},
+      nbfxpcl_yl1 = #{nbfxpclYl1,jdbcType=VARCHAR},
+      nbfxpcl_yl2 = #{nbfxpclYl2,jdbcType=VARCHAR},
+      nbfxpcl_yl3 = #{nbfxpclYl3,jdbcType=VARCHAR},
+      nbfxpcl_yl4 = #{nbfxpclYl4,jdbcType=VARCHAR},
+      nbfxpcl_yl5 = #{nbfxpclYl5,jdbcType=VARCHAR},
+      nbfxpcl_yl6 = #{nbfxpclYl6,jdbcType=VARCHAR},
+      nbfxpcl_yl7 = #{nbfxpclYl7,jdbcType=VARCHAR},
+      nbfxpcl_yl8 = #{nbfxpclYl8,jdbcType=VARCHAR},
+      nbfxpcl_yl9 = #{nbfxpclYl9,jdbcType=VARCHAR},
+      nbfxpcl_yl10 = #{nbfxpclYl10,jdbcType=VARCHAR}
+    where nbfxpcl_id = #{nbfxpclId,jdbcType=VARCHAR}
+  </update>
+</mapper>

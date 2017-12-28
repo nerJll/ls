@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aixu.dao.AixuNbzgdcMapper" >
+<cache type="org.mybatis.caches.ehcache.EhcacheCache" />
+  <resultMap id="BaseResultMap" type="com.aixu.bean.AixuNbzgdc" >
+    <id column="nbzgdc_id" property="nbzgdcId" jdbcType="VARCHAR" />
+    <result column="nbzgdc_xh" property="nbzgdcXh" jdbcType="INTEGER" />
+    <result column="nbzgdc_lx" property="nbzgdcLx" jdbcType="VARCHAR" />
+    <result column="nbzgdc_fa" property="nbzgdcFa" jdbcType="VARCHAR" />
+    <result column="nbzgdc_zrbm" property="nbzgdcZrbm" jdbcType="VARCHAR" />
+    <result column="nbzgdc_zrr" property="nbzgdcZrr" jdbcType="VARCHAR" />
+    <result column="nbzgdc_wcsj" property="nbzgdcWcsj" jdbcType="DATE" />
+    <result column="nbzgdc_zt" property="nbzgdcZt" jdbcType="VARCHAR" />
+    <result column="nbzgdc_ksgldid" property="nbzgdcKsgldid" jdbcType="VARCHAR" />
+    <result column="nbzgdc_yl1" property="nbzgdcYl1" jdbcType="VARCHAR" />
+    <result column="nbzgdc_yl2" property="nbzgdcYl2" jdbcType="VARCHAR" />
+    <result column="nbzgdc_yl3" property="nbzgdcYl3" jdbcType="VARCHAR" />
+    <result column="nbzgdc_yl4" property="nbzgdcYl4" jdbcType="VARCHAR" />
+    <result column="nbzgdc_yl5" property="nbzgdcYl5" jdbcType="VARCHAR" />
+    <result column="nbzgdc_yl6" property="nbzgdcYl6" jdbcType="VARCHAR" />
+    <result column="nbzgdc_yl7" property="nbzgdcYl7" jdbcType="VARCHAR" />
+    <result column="nbzgdc_yl8" property="nbzgdcYl8" jdbcType="VARCHAR" />
+    <result column="nbzgdc_yl9" property="nbzgdcYl9" jdbcType="VARCHAR" />
+    <result column="nbzgdc_yl10" property="nbzgdcYl10" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    nbzgdc_id, nbzgdc_xh, nbzgdc_lx, nbzgdc_fa, nbzgdc_zrbm, nbzgdc_zrr, nbzgdc_wcsj, 
+    nbzgdc_zt, nbzgdc_ksgldid, nbzgdc_yl1, nbzgdc_yl2, nbzgdc_yl3, nbzgdc_yl4, nbzgdc_yl5, 
+    nbzgdc_yl6, nbzgdc_yl7, nbzgdc_yl8, nbzgdc_yl9, nbzgdc_yl10
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aixu.bean.AixuNbzgdcExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aixu_nbzgdc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from aixu_nbzgdc
+    where nbzgdc_id = #{nbzgdcId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from aixu_nbzgdc
+    where nbzgdc_id = #{nbzgdcId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aixu.bean.AixuNbzgdcExample" >
+    delete from aixu_nbzgdc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aixu.bean.AixuNbzgdc" >
+    insert into aixu_nbzgdc (nbzgdc_id, nbzgdc_xh, nbzgdc_lx, 
+      nbzgdc_fa, nbzgdc_zrbm, nbzgdc_zrr, 
+      nbzgdc_wcsj, nbzgdc_zt, nbzgdc_ksgldid, 
+      nbzgdc_yl1, nbzgdc_yl2, nbzgdc_yl3, 
+      nbzgdc_yl4, nbzgdc_yl5, nbzgdc_yl6, 
+      nbzgdc_yl7, nbzgdc_yl8, nbzgdc_yl9, 
+      nbzgdc_yl10)
+    values (#{nbzgdcId,jdbcType=VARCHAR}, #{nbzgdcXh,jdbcType=INTEGER}, #{nbzgdcLx,jdbcType=VARCHAR}, 
+      #{nbzgdcFa,jdbcType=VARCHAR}, #{nbzgdcZrbm,jdbcType=VARCHAR}, #{nbzgdcZrr,jdbcType=VARCHAR}, 
+      #{nbzgdcWcsj,jdbcType=DATE}, #{nbzgdcZt,jdbcType=VARCHAR}, #{nbzgdcKsgldid,jdbcType=VARCHAR}, 
+      #{nbzgdcYl1,jdbcType=VARCHAR}, #{nbzgdcYl2,jdbcType=VARCHAR}, #{nbzgdcYl3,jdbcType=VARCHAR}, 
+      #{nbzgdcYl4,jdbcType=VARCHAR}, #{nbzgdcYl5,jdbcType=VARCHAR}, #{nbzgdcYl6,jdbcType=VARCHAR}, 
+      #{nbzgdcYl7,jdbcType=VARCHAR}, #{nbzgdcYl8,jdbcType=VARCHAR}, #{nbzgdcYl9,jdbcType=VARCHAR}, 
+      #{nbzgdcYl10,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aixu.bean.AixuNbzgdc" >
+    insert into aixu_nbzgdc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nbzgdcId != null" >
+        nbzgdc_id,
+      </if>
+      <if test="nbzgdcXh != null" >
+        nbzgdc_xh,
+      </if>
+      <if test="nbzgdcLx != null" >
+        nbzgdc_lx,
+      </if>
+      <if test="nbzgdcFa != null" >
+        nbzgdc_fa,
+      </if>
+      <if test="nbzgdcZrbm != null" >
+        nbzgdc_zrbm,
+      </if>
+      <if test="nbzgdcZrr != null" >
+        nbzgdc_zrr,
+      </if>
+      <if test="nbzgdcWcsj != null" >
+        nbzgdc_wcsj,
+      </if>
+      <if test="nbzgdcZt != null" >
+        nbzgdc_zt,
+      </if>
+      <if test="nbzgdcKsgldid != null" >
+        nbzgdc_ksgldid,
+      </if>
+      <if test="nbzgdcYl1 != null" >
+        nbzgdc_yl1,
+      </if>
+      <if test="nbzgdcYl2 != null" >
+        nbzgdc_yl2,
+      </if>
+      <if test="nbzgdcYl3 != null" >
+        nbzgdc_yl3,
+      </if>
+      <if test="nbzgdcYl4 != null" >
+        nbzgdc_yl4,
+      </if>
+      <if test="nbzgdcYl5 != null" >
+        nbzgdc_yl5,
+      </if>
+      <if test="nbzgdcYl6 != null" >
+        nbzgdc_yl6,
+      </if>
+      <if test="nbzgdcYl7 != null" >
+        nbzgdc_yl7,
+      </if>
+      <if test="nbzgdcYl8 != null" >
+        nbzgdc_yl8,
+      </if>
+      <if test="nbzgdcYl9 != null" >
+        nbzgdc_yl9,
+      </if>
+      <if test="nbzgdcYl10 != null" >
+        nbzgdc_yl10,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nbzgdcId != null" >
+        #{nbzgdcId,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcXh != null" >
+        #{nbzgdcXh,jdbcType=INTEGER},
+      </if>
+      <if test="nbzgdcLx != null" >
+        #{nbzgdcLx,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcFa != null" >
+        #{nbzgdcFa,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcZrbm != null" >
+        #{nbzgdcZrbm,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcZrr != null" >
+        #{nbzgdcZrr,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcWcsj != null" >
+        #{nbzgdcWcsj,jdbcType=DATE},
+      </if>
+      <if test="nbzgdcZt != null" >
+        #{nbzgdcZt,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcKsgldid != null" >
+        #{nbzgdcKsgldid,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl1 != null" >
+        #{nbzgdcYl1,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl2 != null" >
+        #{nbzgdcYl2,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl3 != null" >
+        #{nbzgdcYl3,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl4 != null" >
+        #{nbzgdcYl4,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl5 != null" >
+        #{nbzgdcYl5,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl6 != null" >
+        #{nbzgdcYl6,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl7 != null" >
+        #{nbzgdcYl7,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl8 != null" >
+        #{nbzgdcYl8,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl9 != null" >
+        #{nbzgdcYl9,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl10 != null" >
+        #{nbzgdcYl10,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aixu.bean.AixuNbzgdcExample" resultType="java.lang.Integer" >
+    select count(*) from aixu_nbzgdc
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aixu_nbzgdc
+    <set >
+      <if test="record.nbzgdcId != null" >
+        nbzgdc_id = #{record.nbzgdcId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbzgdcXh != null" >
+        nbzgdc_xh = #{record.nbzgdcXh,jdbcType=INTEGER},
+      </if>
+      <if test="record.nbzgdcLx != null" >
+        nbzgdc_lx = #{record.nbzgdcLx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbzgdcFa != null" >
+        nbzgdc_fa = #{record.nbzgdcFa,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbzgdcZrbm != null" >
+        nbzgdc_zrbm = #{record.nbzgdcZrbm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbzgdcZrr != null" >
+        nbzgdc_zrr = #{record.nbzgdcZrr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbzgdcWcsj != null" >
+        nbzgdc_wcsj = #{record.nbzgdcWcsj,jdbcType=DATE},
+      </if>
+      <if test="record.nbzgdcZt != null" >
+        nbzgdc_zt = #{record.nbzgdcZt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbzgdcKsgldid != null" >
+        nbzgdc_ksgldid = #{record.nbzgdcKsgldid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbzgdcYl1 != null" >
+        nbzgdc_yl1 = #{record.nbzgdcYl1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbzgdcYl2 != null" >
+        nbzgdc_yl2 = #{record.nbzgdcYl2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbzgdcYl3 != null" >
+        nbzgdc_yl3 = #{record.nbzgdcYl3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbzgdcYl4 != null" >
+        nbzgdc_yl4 = #{record.nbzgdcYl4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbzgdcYl5 != null" >
+        nbzgdc_yl5 = #{record.nbzgdcYl5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbzgdcYl6 != null" >
+        nbzgdc_yl6 = #{record.nbzgdcYl6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbzgdcYl7 != null" >
+        nbzgdc_yl7 = #{record.nbzgdcYl7,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbzgdcYl8 != null" >
+        nbzgdc_yl8 = #{record.nbzgdcYl8,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbzgdcYl9 != null" >
+        nbzgdc_yl9 = #{record.nbzgdcYl9,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nbzgdcYl10 != null" >
+        nbzgdc_yl10 = #{record.nbzgdcYl10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aixu_nbzgdc
+    set nbzgdc_id = #{record.nbzgdcId,jdbcType=VARCHAR},
+      nbzgdc_xh = #{record.nbzgdcXh,jdbcType=INTEGER},
+      nbzgdc_lx = #{record.nbzgdcLx,jdbcType=VARCHAR},
+      nbzgdc_fa = #{record.nbzgdcFa,jdbcType=VARCHAR},
+      nbzgdc_zrbm = #{record.nbzgdcZrbm,jdbcType=VARCHAR},
+      nbzgdc_zrr = #{record.nbzgdcZrr,jdbcType=VARCHAR},
+      nbzgdc_wcsj = #{record.nbzgdcWcsj,jdbcType=DATE},
+      nbzgdc_zt = #{record.nbzgdcZt,jdbcType=VARCHAR},
+      nbzgdc_ksgldid = #{record.nbzgdcKsgldid,jdbcType=VARCHAR},
+      nbzgdc_yl1 = #{record.nbzgdcYl1,jdbcType=VARCHAR},
+      nbzgdc_yl2 = #{record.nbzgdcYl2,jdbcType=VARCHAR},
+      nbzgdc_yl3 = #{record.nbzgdcYl3,jdbcType=VARCHAR},
+      nbzgdc_yl4 = #{record.nbzgdcYl4,jdbcType=VARCHAR},
+      nbzgdc_yl5 = #{record.nbzgdcYl5,jdbcType=VARCHAR},
+      nbzgdc_yl6 = #{record.nbzgdcYl6,jdbcType=VARCHAR},
+      nbzgdc_yl7 = #{record.nbzgdcYl7,jdbcType=VARCHAR},
+      nbzgdc_yl8 = #{record.nbzgdcYl8,jdbcType=VARCHAR},
+      nbzgdc_yl9 = #{record.nbzgdcYl9,jdbcType=VARCHAR},
+      nbzgdc_yl10 = #{record.nbzgdcYl10,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aixu.bean.AixuNbzgdc" >
+    update aixu_nbzgdc
+    <set >
+      <if test="nbzgdcXh != null" >
+        nbzgdc_xh = #{nbzgdcXh,jdbcType=INTEGER},
+      </if>
+      <if test="nbzgdcLx != null" >
+        nbzgdc_lx = #{nbzgdcLx,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcFa != null" >
+        nbzgdc_fa = #{nbzgdcFa,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcZrbm != null" >
+        nbzgdc_zrbm = #{nbzgdcZrbm,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcZrr != null" >
+        nbzgdc_zrr = #{nbzgdcZrr,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcWcsj != null" >
+        nbzgdc_wcsj = #{nbzgdcWcsj,jdbcType=DATE},
+      </if>
+      <if test="nbzgdcZt != null" >
+        nbzgdc_zt = #{nbzgdcZt,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcKsgldid != null" >
+        nbzgdc_ksgldid = #{nbzgdcKsgldid,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl1 != null" >
+        nbzgdc_yl1 = #{nbzgdcYl1,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl2 != null" >
+        nbzgdc_yl2 = #{nbzgdcYl2,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl3 != null" >
+        nbzgdc_yl3 = #{nbzgdcYl3,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl4 != null" >
+        nbzgdc_yl4 = #{nbzgdcYl4,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl5 != null" >
+        nbzgdc_yl5 = #{nbzgdcYl5,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl6 != null" >
+        nbzgdc_yl6 = #{nbzgdcYl6,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl7 != null" >
+        nbzgdc_yl7 = #{nbzgdcYl7,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl8 != null" >
+        nbzgdc_yl8 = #{nbzgdcYl8,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl9 != null" >
+        nbzgdc_yl9 = #{nbzgdcYl9,jdbcType=VARCHAR},
+      </if>
+      <if test="nbzgdcYl10 != null" >
+        nbzgdc_yl10 = #{nbzgdcYl10,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where nbzgdc_id = #{nbzgdcId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aixu.bean.AixuNbzgdc" >
+    update aixu_nbzgdc
+    set nbzgdc_xh = #{nbzgdcXh,jdbcType=INTEGER},
+      nbzgdc_lx = #{nbzgdcLx,jdbcType=VARCHAR},
+      nbzgdc_fa = #{nbzgdcFa,jdbcType=VARCHAR},
+      nbzgdc_zrbm = #{nbzgdcZrbm,jdbcType=VARCHAR},
+      nbzgdc_zrr = #{nbzgdcZrr,jdbcType=VARCHAR},
+      nbzgdc_wcsj = #{nbzgdcWcsj,jdbcType=DATE},
+      nbzgdc_zt = #{nbzgdcZt,jdbcType=VARCHAR},
+      nbzgdc_ksgldid = #{nbzgdcKsgldid,jdbcType=VARCHAR},
+      nbzgdc_yl1 = #{nbzgdcYl1,jdbcType=VARCHAR},
+      nbzgdc_yl2 = #{nbzgdcYl2,jdbcType=VARCHAR},
+      nbzgdc_yl3 = #{nbzgdcYl3,jdbcType=VARCHAR},
+      nbzgdc_yl4 = #{nbzgdcYl4,jdbcType=VARCHAR},
+      nbzgdc_yl5 = #{nbzgdcYl5,jdbcType=VARCHAR},
+      nbzgdc_yl6 = #{nbzgdcYl6,jdbcType=VARCHAR},
+      nbzgdc_yl7 = #{nbzgdcYl7,jdbcType=VARCHAR},
+      nbzgdc_yl8 = #{nbzgdcYl8,jdbcType=VARCHAR},
+      nbzgdc_yl9 = #{nbzgdcYl9,jdbcType=VARCHAR},
+      nbzgdc_yl10 = #{nbzgdcYl10,jdbcType=VARCHAR}
+    where nbzgdc_id = #{nbzgdcId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByFk" parameterType="String" resultMap="BaseResultMap">
+  	SELECT
+  	<include refid="Base_Column_List" />
+  	FROM aixu_nbzgdc
+  	WHERE
+  	nbzgdc_ksgldid = #{baseId}
+  </select>
+</mapper>

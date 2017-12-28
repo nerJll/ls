@@ -1,0 +1,429 @@
+package com.aixu.bean;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+/**
+ * 瀹㈣瘔鍗曞熀纭�绫�
+ * @date 2017骞�12鏈�13鏃�-涓嬪崍2:16:09
+ * @since 1.0.0
+ */
+public class AixuBaseLawsuit implements java.io.Serializable{
+
+	private static final long serialVersionUID = 1169914789389489840L;
+
+	private String id;
+
+    private String lawsuitNo; // 客诉单编号
+
+    private String customName; // 客户名称
+
+    private String customNo; // 客户编码
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
+    private Date complainDate; // 投诉日期
+
+    private String productType; // 产品型号
+
+    private String productNo; // 产品编码
+
+    private String deliverSeq; // 发货批次
+
+    private String salesNo; // 销售订单编码
+
+    private String dutyFactory; // 责任工厂
+
+    private String applyName; // 申请人姓名
+
+    private String applyNo; // 申请人编号
+
+    private String isNeedRep; // 客户是否需要报告
+
+    private String lawsuitState; // 客诉状态
+
+    private String lawsuitDanState; // 客诉单状态
+
+    private String fid; // 流程id
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime; //  创建事件
+    
+    private String fileSrc; // 为念地址
+    
+    private List<AixuLawsuiDetail> zd1s; // 子表单1
+    
+    private List<AixuCustomDo> zd2; // 子表单2
+    
+    private List<AixuNbfxpcl> zd3; // 子表单3
+    
+    private List<AixuNbzgdc> zd4; // 子表单4
+    
+    private List<AixuNbzgxgyz> zd5; // 子表单5
+    
+    private List<AixuZrrd> zd6; // 子表单6
+    
+    private String customState; // 瀹㈡埛澶勭悊鐘舵��
+
+    private String dangerousGoodsState; // 椋庨櫓鍝佸鐞嗙姸鎬�
+
+    private String reformState; // 鏁存敼鐘舵��
+
+    private String dutyState; // 璐ｄ换璁ゅ畾鐘舵��
+
+    private Integer complainMount; // 鎶曡瘔鏁伴噺
+
+    public String getCustomState() {
+		return customState;
+	}
+
+	public void setCustomState(String customState) {
+		this.customState = customState;
+	}
+
+	public String getDangerousGoodsState() {
+		return dangerousGoodsState;
+	}
+
+	public void setDangerousGoodsState(String dangerousGoodsState) {
+		this.dangerousGoodsState = dangerousGoodsState;
+	}
+
+	public String getReformState() {
+		return reformState;
+	}
+
+	public void setReformState(String reformState) {
+		this.reformState = reformState;
+	}
+
+	public String getDutyState() {
+		return dutyState;
+	}
+
+	public void setDutyState(String dutyState) {
+		this.dutyState = dutyState;
+	}
+
+	public Integer getComplainMount() {
+		return complainMount;
+	}
+
+	public void setComplainMount(Integer complainMount) {
+		this.complainMount = complainMount;
+	}
+
+	public List<AixuLawsuiDetail> getZd1s() {
+		return zd1s;
+	}
+
+	public void setZd1s(List<AixuLawsuiDetail> zd1s) {
+		this.zd1s = zd1s;
+	}
+
+	public List<AixuCustomDo> getZd2() {
+		return zd2;
+	}
+
+	public void setZd2(List<AixuCustomDo> zd2) {
+		this.zd2 = zd2;
+	}
+
+	public List<AixuNbfxpcl> getZd3() {
+		return zd3;
+	}
+
+	public void setZd3(List<AixuNbfxpcl> zd3) {
+		this.zd3 = zd3;
+	}
+
+	public List<AixuNbzgdc> getZd4() {
+		return zd4;
+	}
+
+	public void setZd4(List<AixuNbzgdc> zd4) {
+		this.zd4 = zd4;
+	}
+
+	public List<AixuNbzgxgyz> getZd5() {
+		return zd5;
+	}
+
+	public void setZd5(List<AixuNbzgxgyz> zd5) {
+		this.zd5 = zd5;
+	}
+
+	public List<AixuZrrd> getZd6() {
+		return zd6;
+	}
+
+	public void setZd6(List<AixuZrrd> zd6) {
+		this.zd6 = zd6;
+	}
+
+	private String resOne;
+
+    private String resTwo;
+
+    private String resThree;
+
+    private String resFour;
+
+    private String resFive;
+
+    private String resSix;
+
+    private String resSeven;
+
+    private String resEight;
+
+    private String resNine;
+
+    private String resTen;	//是否立案
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
+    }
+
+    public String getLawsuitNo() {
+        return lawsuitNo;
+    }
+
+    public void setLawsuitNo(String lawsuitNo) {
+        this.lawsuitNo = lawsuitNo == null ? null : lawsuitNo.trim();
+    }
+
+    public String getCustomName() {
+        return customName;
+    }
+
+    public void setCustomName(String customName) {
+        this.customName = customName == null ? null : customName.trim();
+    }
+
+    public String getCustomNo() {
+        return customNo;
+    }
+
+    public void setCustomNo(String customNo) {
+        this.customNo = customNo == null ? null : customNo.trim();
+    }
+
+    public Date getComplainDate() {
+        return complainDate;
+    }
+
+    public void setComplainDate(Date complainDate) {
+        this.complainDate = complainDate;
+    }
+
+    public String getProductType() {
+        return productType;
+    }
+
+    public void setProductType(String productType) {
+        this.productType = productType == null ? null : productType.trim();
+    }
+
+    public String getProductNo() {
+        return productNo;
+    }
+
+    public void setProductNo(String productNo) {
+        this.productNo = productNo == null ? null : productNo.trim();
+    }
+
+    public String getDeliverSeq() {
+        return deliverSeq;
+    }
+
+    public void setDeliverSeq(String deliverSeq) {
+        this.deliverSeq = deliverSeq == null ? null : deliverSeq.trim();
+    }
+
+    public String getSalesNo() {
+        return salesNo;
+    }
+
+    public void setSalesNo(String salesNo) {
+        this.salesNo = salesNo == null ? null : salesNo.trim();
+    }
+
+    public String getDutyFactory() {
+        return dutyFactory;
+    }
+
+    public void setDutyFactory(String dutyFactory) {
+        this.dutyFactory = dutyFactory == null ? null : dutyFactory.trim();
+    }
+
+    public String getApplyName() {
+        return applyName;
+    }
+
+    public void setApplyName(String applyName) {
+        this.applyName = applyName == null ? null : applyName.trim();
+    }
+
+    public String getApplyNo() {
+        return applyNo;
+    }
+
+    public void setApplyNo(String applyNo) {
+        this.applyNo = applyNo == null ? null : applyNo.trim();
+    }
+
+    public String getIsNeedRep() {
+        return isNeedRep;
+    }
+
+    public void setIsNeedRep(String isNeedRep) {
+        this.isNeedRep = isNeedRep == null ? null : isNeedRep.trim();
+    }
+
+    public String getLawsuitState() {
+        return lawsuitState;
+    }
+
+    public void setLawsuitState(String lawsuitState) {
+        this.lawsuitState = lawsuitState == null ? null : lawsuitState.trim();
+    }
+
+    public String getLawsuitDanState() {
+        return lawsuitDanState;
+    }
+
+    public void setLawsuitDanState(String lawsuitDanState) {
+        this.lawsuitDanState = lawsuitDanState == null ? null : lawsuitDanState.trim();
+    }
+
+    public String getFid() {
+        return fid;
+    }
+
+    public void setFid(String fid) {
+        this.fid = fid == null ? null : fid.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getResOne() {
+        return resOne;
+    }
+
+    public void setResOne(String resOne) {
+        this.resOne = resOne == null ? null : resOne.trim();
+    }
+
+    public String getResTwo() {
+        return resTwo;
+    }
+
+    public void setResTwo(String resTwo) {
+        this.resTwo = resTwo == null ? null : resTwo.trim();
+    }
+
+    public String getResThree() {
+        return resThree;
+    }
+
+    public void setResThree(String resThree) {
+        this.resThree = resThree == null ? null : resThree.trim();
+    }
+
+    public String getResFour() {
+        return resFour;
+    }
+
+    public void setResFour(String resFour) {
+        this.resFour = resFour == null ? null : resFour.trim();
+    }
+
+    public String getResFive() {
+        return resFive;
+    }
+
+    public void setResFive(String resFive) {
+        this.resFive = resFive == null ? null : resFive.trim();
+    }
+
+    public String getResSix() {
+        return resSix;
+    }
+
+    public void setResSix(String resSix) {
+        this.resSix = resSix == null ? null : resSix.trim();
+    }
+
+    public String getResSeven() {
+        return resSeven;
+    }
+
+    public void setResSeven(String resSeven) {
+        this.resSeven = resSeven == null ? null : resSeven.trim();
+    }
+
+    public String getResEight() {
+        return resEight;
+    }
+
+    public void setResEight(String resEight) {
+        this.resEight = resEight == null ? null : resEight.trim();
+    }
+
+    public String getResNine() {
+        return resNine;
+    }
+
+    public void setResNine(String resNine) {
+        this.resNine = resNine == null ? null : resNine.trim();
+    }
+
+    public String getResTen() {
+        return resTen;
+    }
+
+    public void setResTen(String resTen) {
+        this.resTen = resTen == null ? null : resTen.trim();
+    }
+
+    public String getFileSrc() {
+        return fileSrc;
+    }
+
+    public void setFileSrc(String fileSrc) {
+        this.fileSrc = fileSrc == null ? null : fileSrc.trim();
+    }
+
+	@Override
+	public String toString() {
+		return "{\"id\":\"" + id + "\",\"lawsuitNo\":\"" + lawsuitNo + "\",\"customName\":\"" + customName
+				+ "\",\"customNo\":\"" + customNo + "\",\"complainDate\":\"" + complainDate + "\",\"productType\":\""
+				+ productType + "\",\"productNo\":\"" + productNo + "\",\"deliverSeq\":\"" + deliverSeq
+				+ "\",\"salesNo\":\"" + salesNo + "\",\"dutyFactory\":\"" + dutyFactory + "\",\"applyName\":\""
+				+ applyName + "\",\"applyNo\":\"" + applyNo + "\",\"isNeedRep\":\"" + isNeedRep
+				+ "\",\"lawsuitState\":\"" + lawsuitState + "\",\"lawsuitDanState\":\"" + lawsuitDanState
+				+ "\",\"fid\":\"" + fid + "\",\"createTime\":\"" + createTime + "\",\"fileSrc\":\"" + fileSrc
+				+ "\",\"zd1s\":\"" + zd1s + "\",\"zd2\":\"" + zd2 + "\",\"zd3\":\"" + zd3 + "\",\"zd4\":\"" + zd4
+				+ "\",\"zd5\":\"" + zd5 + "\",\"zd6\":\"" + zd6 + "\",\"resOne\":\"" + resOne + "\",\"resTwo\":\""
+				+ resTwo + "\",\"resThree\":\"" + resThree + "\",\"resFour\":\"" + resFour + "\",\"resFive\":\""
+				+ resFive + "\",\"resSix\":\"" + resSix + "\",\"resSeven\":\"" + resSeven + "\",\"resEight\":\""
+				+ resEight + "\",\"resNine\":\"" + resNine + "\",\"resTen\":\"" + resTen + "\"}";
+	}
+    
+    
+}

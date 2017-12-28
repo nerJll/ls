@@ -1,0 +1,228 @@
+package com.aixu.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.aixu.bean.AixuBaseLawsuit;
+import com.aixu.bean.AixuBaseLawsuitExample;
+import com.aixu.bean.AixuCustomDo;
+import com.aixu.bean.AixuLawsuiDetail;
+import com.aixu.bean.AixuNbfxpcl;
+import com.aixu.bean.AixuNbzgdc;
+import com.aixu.bean.AixuNbzgxgyz;
+import com.aixu.bean.AixuZrrd;
+import com.aixu.dao.AixuBaseLawsuitMapper;
+import com.aixu.dao.AixuCustomDoMapper;
+import com.aixu.dao.AixuNbfxpclMapper;
+import com.aixu.dao.AixuNbzgxgyzMapper;
+import com.aixu.dao.AixuZrrdMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
+@Service
+public class LawSuitBaseService {
+	
+	@Autowired
+	private AixuBaseLawsuitMapper baseLawSuitDAO;
+	
+	@Autowired
+	private AixuCustomDoMapper customDoDAO;// 客户处理单
+	
+	@Autowired
+	private AixuNbzgxgyzMapper NbzgDAO;// 内部整改
+	
+	@Autowired
+	private AixuNbfxpclMapper fxpDAO; // 内部风险品
+	
+	@Autowired
+	private AixuZrrdMapper zrrdDAO;// 责任认定
+	
+	
+	/**
+	 * @param baseLawSuitExample 查询类
+	 * @param page 当前页
+	 * @param size 每页数量
+	 * @return 分页信息
+	 */
+	public PageInfo<AixuBaseLawsuit> listAllAndProduceItem(AixuBaseLawsuitExample baseLawSuitExample, Integer page, Integer size) {
+		PageHelper.startPage(page, size);
+		List<AixuBaseLawsuit> baseLawSuitList = baseLawSuitDAO.selectByExample(baseLawSuitExample);
+		// 状态检测
+		for (AixuBaseLawsuit aixuBaseLawsuit : baseLawSuitList) {
+			// 判定客户处理状态
+			List<AixuCustomDo> zd2 = aixuBaseLawsuit.getZd2();
+			if (!zd2.isEmpty()) {
+				for (AixuCustomDo aixuCustomDo : zd2) {
+					if ("未完成".equals(aixuCustomDo.getHandleState()) || "审批中".equals(aixuCustomDo.getHandleState())) {
+						aixuBaseLawsuit.setCustomState("处理中");
+						break;
+					} else {
+						aixuBaseLawsuit.setCustomState("已完成");
+					}
+				}
+			}
+			// 判定风险品处理状态
+			List<AixuNbfxpcl> zd3 = aixuBaseLawsuit.getZd3();
+			if (!zd3.isEmpty()) {
+				for (AixuNbfxpcl aixuNbfxpcl : zd3) {
+					if ("未隔离".equals(aixuNbfxpcl.getNbfxpclZt()) || "未评估".equals(aixuNbfxpcl.getNbfxpclZt()) || "未处理".equals(aixuNbfxpcl.getNbfxpclZt())) {
+						aixuBaseLawsuit.setDangerousGoodsState("处理中");
+						break;
+					} else {
+						// 已处理
+						aixuBaseLawsuit.setDangerousGoodsState("已完成");
+					}
+				}
+			}
+			// 整改状态
+			List<AixuNbzgdc> zd4 = aixuBaseLawsuit.getZd4();
+			List<AixuNbzgxgyz> zd5 = aixuBaseLawsuit.getZd5();
+			if (!zd4.isEmpty()) {
+				for (AixuNbzgdc aixuNbzgdc : zd4) {
+					if ("未完成".equals(aixuNbzgdc.getNbzgdcZt())) {
+						aixuBaseLawsuit.setReformState("整改中");
+						break;
+					} else {
+						for (AixuNbzgxgyz aixuNbzgxgyz : zd5) {
+							if ("未完成".equals(aixuNbzgxgyz.getNbzgxgyzZt())) {
+								aixuBaseLawsuit.setReformState("验证中");
+								break;
+							} else {
+								aixuBaseLawsuit.setReformState("已完成");
+							}
+						}
+					}
+				}
+			}
+			// 责任认定状态
+			List<AixuZrrd> zd6 = aixuBaseLawsuit.getZd6();
+			if (!zd6.isEmpty()) {
+				aixuBaseLawsuit.setDutyState("已完成");
+			} else {
+				aixuBaseLawsuit.setDutyState("认定中");
+			}
+			// 数量计算
+			List<AixuLawsuiDetail> zd1s = aixuBaseLawsuit.getZd1s();
+			if (!zd1s.isEmpty()) {
+				Integer sum = 0;
+				for (AixuLawsuiDetail aixuLawsuiDetail : zd1s) {
+					sum += aixuLawsuiDetail.getComplainMount();
+				}
+				aixuBaseLawsuit.setComplainMount(sum);
+			} else {
+				aixuBaseLawsuit.setComplainMount(0);
+			}
+			
+		}
+		PageInfo<AixuBaseLawsuit> pageInfo = new PageInfo<>(baseLawSuitList);
+		return pageInfo;
+	}
+	
+	/**
+	 * @param id
+	 * @return
+	 * 对详情进行集合处理
+	 */
+	public AixuBaseLawsuit getBaseLawSuitById(String id) {
+		AixuBaseLawsuit baselawsuit = baseLawSuitDAO.selectByPrimaryKey(id);
+		return baselawsuit;
+	}
+	
+	
+	/**
+	 * 未进行分页处理-供导出excel使用
+	 * @param baseLawSuitExample
+	 * @return
+	 */
+	public List<AixuBaseLawsuit> listAllAndProduceItem(AixuBaseLawsuitExample baseLawSuitExample) {
+		
+		List<AixuBaseLawsuit> baseLawSuitList = baseLawSuitDAO.selectByExample(baseLawSuitExample);
+		// 状态检测
+		for (AixuBaseLawsuit aixuBaseLawsuit : baseLawSuitList) {
+			// 判定客户处理状态
+			List<AixuCustomDo> zd2 = aixuBaseLawsuit.getZd2();
+			if (!zd2.isEmpty()) {
+				for (AixuCustomDo aixuCustomDo : zd2) {
+					if ("未完成".equals(aixuCustomDo.getHandleState()) || "审批中".equals(aixuCustomDo.getHandleState())) {
+						aixuBaseLawsuit.setCustomState("处理中");
+						break;
+					} else {
+						aixuBaseLawsuit.setCustomState("已完成");
+					}
+				}
+			}
+			// 判定风险品处理状态
+			List<AixuNbfxpcl> zd3 = aixuBaseLawsuit.getZd3();
+			if (!zd3.isEmpty()) {
+				for (AixuNbfxpcl aixuNbfxpcl : zd3) {
+					if ("未隔离".equals(aixuNbfxpcl.getNbfxpclZt()) || "未评估".equals(aixuNbfxpcl.getNbfxpclZt()) || "未处理".equals(aixuNbfxpcl.getNbfxpclZt())) {
+						aixuBaseLawsuit.setDangerousGoodsState("处理中");
+						break;
+					} else {
+						// 已处理
+						aixuBaseLawsuit.setDangerousGoodsState("已完成");
+					}
+				}
+			}
+			// 整改状态
+			List<AixuNbzgdc> zd4 = aixuBaseLawsuit.getZd4();
+			List<AixuNbzgxgyz> zd5 = aixuBaseLawsuit.getZd5();
+			if (!zd4.isEmpty()) {
+				for (AixuNbzgdc aixuNbzgdc : zd4) {
+					if ("未完成".equals(aixuNbzgdc.getNbzgdcZt())) {
+						aixuBaseLawsuit.setReformState("整改中");
+						break;
+					} else {
+						for (AixuNbzgxgyz aixuNbzgxgyz : zd5) {
+							if ("未完成".equals(aixuNbzgxgyz.getNbzgxgyzZt())) {
+								aixuBaseLawsuit.setReformState("验证中");
+								break;
+							} else {
+								aixuBaseLawsuit.setReformState("已完成");
+							}
+						}
+					}
+				}
+			}
+			// 责任认定状态
+			List<AixuZrrd> zd6 = aixuBaseLawsuit.getZd6();
+			if (!zd6.isEmpty()) {
+				aixuBaseLawsuit.setDutyState("已完成");
+			} else {
+				aixuBaseLawsuit.setDutyState("认定中");
+			}
+			// 数量计算
+			List<AixuLawsuiDetail> zd1s = aixuBaseLawsuit.getZd1s();
+			if (!zd1s.isEmpty()) {
+				Integer sum = 0;
+				for (AixuLawsuiDetail aixuLawsuiDetail : zd1s) {
+					sum += aixuLawsuiDetail.getComplainMount();
+				}
+				aixuBaseLawsuit.setComplainMount(sum);
+			} else {
+				aixuBaseLawsuit.setComplainMount(0);
+			}
+			
+		}
+		
+		return baseLawSuitList;
+	}
+	
+	/**
+	 * stream操作
+	 * 
+	 * @param baseLawSuitExample
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	public List<AixuBaseLawsuit> listAllReBuild(AixuBaseLawsuitExample baseLawSuitExample, Integer page, Integer size) {
+		List<AixuBaseLawsuit> baseLawSuitList = baseLawSuitDAO.selectByExample(baseLawSuitExample);
+		// baseLawSuitList.stream().forEach(item -> System.out::print);
+		return null;
+	}
+	
+}

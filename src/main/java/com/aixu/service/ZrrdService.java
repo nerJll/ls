@@ -1,0 +1,82 @@
+package com.aixu.service;
+
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.aixu.bean.AixuZrrd;
+import com.aixu.bean.AixuZrrdExample;
+import com.aixu.dao.AixuZrrdMapper;
+import com.aixu.util.IDUtils;
+
+/**
+* @desc 责任认定
+* @date 2017年12月26日
+*/
+
+@Service
+public class ZrrdService {
+	private final static Logger logger = LoggerFactory.getLogger(ZrrdService.class);
+	
+	@Autowired
+	private AixuZrrdMapper aixuZrrdDao;
+	
+	/**
+	 * @desc  存储责任认定
+	 * @param aixuCustomDos
+	 * @return
+	 */
+	public boolean saveAixuZrrd(List<AixuZrrd> aixuZrrds) {
+		try {
+			for(int i=0; i<aixuZrrds.size(); i++) {
+				aixuZrrds.get(i).setZrrdId(IDUtils.getUuid(true));
+				aixuZrrds.get(i).setZrrdYl10("审批中");
+				aixuZrrdDao.insert(aixuZrrds.get(i));				//存储客户处理
+			}
+			return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			logger.info("<--客户处理存储出错-->");
+			return false;
+		}
+	}
+	
+	/**
+	 * @desc 通过认定客诉id取责任认定
+	 * @param id
+	 * @return
+	 */
+	public List<AixuZrrd> getAixuZrrdByksId(String id){
+		AixuZrrdExample exp = new AixuZrrdExample();
+		exp.createCriteria().andZrrdKsgldidEqualTo(id);
+		return aixuZrrdDao.selectByExample(exp);
+	}
+	
+	/**
+	 * @desc  通过id取责任认定
+	 * @param id
+	 * @return
+	 */
+	public AixuZrrd getZrrdById(String id) {
+		return aixuZrrdDao.selectByPrimaryKey(id);
+	}
+	
+	/**
+	 * @desc  更新责任认定
+	 * @param aixuZrrd
+	 * @return
+	 */
+	public boolean updataZrrd(AixuZrrd aixuZrrd) {
+		try {
+			aixuZrrdDao.updateByPrimaryKeySelective(aixuZrrd);
+			return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+}
+

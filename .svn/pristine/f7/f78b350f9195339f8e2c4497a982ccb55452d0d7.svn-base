@@ -1,0 +1,149 @@
+package com.aixu.controller;
+/**
+* @desc	责任认定
+* @date 2017年12月25日
+*/
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.aiko.common.util.SystemApi;
+import com.aixu.bean.AixuBaseLawsuit;
+import com.aixu.bean.AixuLawsuiDetail;
+import com.aixu.bean.AixuZrrd;
+import com.aixu.entity.AixuUser;
+import com.aixu.entity.ResultValue;
+import com.aixu.service.BaseInfoDetailService;
+import com.aixu.service.CCBaseInfoService;
+import com.aixu.service.ZrrdService;
+import com.aixu.util.OAUtils;
+
+@Controller
+@RequestMapping("/zrrd")
+public class ZrrdController {
+
+	private final static Logger logger = LoggerFactory.getLogger(ZrrdController.class);
+	@Autowired
+	private CCBaseInfoService cCBaseInfoService;
+	@Autowired
+	private BaseInfoDetailService baseInfoDetailService;
+	@Autowired
+	private ZrrdService zrrdService;
+	
+	/**
+	 * @desc  跳转责任认定
+	 * @param lawsuitId
+	 * @param model
+	 * @return
+	 */
+	@PostMapping("/index")
+	public String index(@RequestParam("lawsuitId")String lawsuitId,
+			Model model) {
+		try {
+			AixuBaseLawsuit aixuBaseLawsuit = cCBaseInfoService.getBaseInfoById(lawsuitId);
+			List<AixuLawsuiDetail> aixuLawsuiDetails = baseInfoDetailService.getDetilByBaseId(lawsuitId);
+			
+			model.addAttribute("aixuBaseLawsuit",aixuBaseLawsuit);
+			model.addAttribute("aixuLawsuiDetails",aixuLawsuiDetails);
+			
+			String userId = (String) SystemApi.getCurrentUser().get("userid");	//当前登陆人id
+			model.addAttribute("userId", userId);
+			
+			String[] fileSrcs = aixuBaseLawsuit.getFileSrc().split(","); // 文件地址
+			model.addAttribute("fileSrcs",fileSrcs);
+			
+			List<AixuZrrd> aixuZrrds = zrrdService.getAixuZrrdById(aixuBaseLawsuit.getId());	//责任认定
+			model.addAttribute("aixuZrrds",aixuZrrds);
+			
+			if(aixuZrrds.size() == 0) {
+				return "ccbi/zrrd";
+			}else {
+				return "ccbi/zrrd2";
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			logger.info("<--责任认定-获取客诉信息失败-->");
+			return "ccbi/zrrd";
+		}
+	}
+	
+	/**
+	 * @desc  责任认定提交OA
+	 * @param aixuBaseLawsuit
+	 * @param req
+	 * @return
+	 */
+	@PostMapping("/sendZRRD")
+	@ResponseBody
+	public ResultValue sendZRRD(@RequestParam("infoId")String infoId,
+			@RequestParam("OAId")String OAId,
+			@RequestParam("company")String company,
+			@RequestParam("zrrdZrbms[]")String[] zrrdZrbms,
+			@RequestParam("zrrdZrrs[]")String[] zrrdZrrs,
+			@RequestParam("zrrdYl1s[]")String[] zrrdYl1s,
+			HttpServletRequest req) {
+		ResultValue rv = new ResultValue();
+		try {
+			//三个信息：客诉基本信息、详情、客户处理
+			AixuBaseLawsuit aixuBaseLawsuit = cCBaseInfoService.getBaseInfoById(infoId);
+			List<AixuLawsuiDetail> aixuLawsuiDetails = baseInfoDetailService.getDetilByBaseId(infoId);
+			
+			//更新客诉状态
+			aixuBaseLawsuit.setLawsuitDanState("阶段3-OA审批中");
+			boolean hasUpdate = cCBaseInfoService.saveAndSendOA1(aixuBaseLawsuit);
+			
+			
+			List<AixuZrrd> aixuZrrds = new ArrayList<>();
+			//存储责任认定
+			for(int i=0; i<zrrdZrbms.length; i++) {
+				AixuZrrd aixuZrrd = new AixuZrrd();
+				aixuZrrd.setZrrdZrbm(zrrdZrbms[i]);
+				aixuZrrd.setZrrdZrr(zrrdZrrs[i]);
+				aixuZrrd.setZrrdYl1(zrrdYl1s[i]);
+				aixuZrrd.setZrrdKsgldid(aixuBaseLawsuit.getId());
+				aixuZrrds.add(aixuZrrd);
+			}
+			
+			if(hasUpdate) {
+				zrrdService.saveAixuZrrd(aixuZrrds);
+			}
+			
+			//从数据库中获取责任认定
+			aixuZrrds = zrrdService.getAixuZrrdById(aixuBaseLawsuit.getId());
+			// 当前登陆人
+			AixuUser user = new AixuUser();
+			user.setUserId(OAId);
+			user.setCompany(company);
+			user.setPosition((String) SystemApi.getCurrentUser().get("position"));
+			user.setPhoneNo((String) SystemApi.getCurrentUser().get("mobile"));
+			user.setDepId((String) SystemApi.getCurrentUser().get("deptid"));
+			
+			//触发OA审批2 
+			if(hasUpdate) {
+				OAUtils.sendOABaseInfo3("737", user.getUserId(), aixuBaseLawsuit, 
+						aixuLawsuiDetails, aixuZrrds, user);
+				return rv.success("数据提交成功",aixuBaseLawsuit.getId());
+			}else {
+				return rv.fail("触发OA审批3失败",null);
+			}
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return rv.fail("触发OA审批3失败",null);
+		}
+	}
+}
+

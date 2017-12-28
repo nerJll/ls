@@ -1,0 +1,10 @@
+<script type="text/javascript" src='${ctx}/js/jquery/jquery-3.2.1.min.js'></script>
+<script type="text/javascript" src="${ctx}/ui/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${ctx}/ui/bootstrap/js/bootstrap-select.js"></script>
+<script type="text/javascript" src="${ctx}/ui/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="${ctx}/ui/bootstrap/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript" src="${ctx}/ui/bootstrap/js/fileinput.min.js"></script>
+<script type="text/javascript" src="${ctx}/ui/bootstrap/js/locales/zh.js"></script>
+<script type="text/javascript" src="${ctx}/ui/bootstrap/js/locales/defaults-zh_CN.js"></script>
+<script type="text/javascript" src='${ctx}/js/ccbi/PerfectLoad.js'></script>
+<script type="text/javascript" src='${ctx}/js/ccbi/file.js'></script>

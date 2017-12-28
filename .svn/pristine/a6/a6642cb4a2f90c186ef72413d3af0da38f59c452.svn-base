@@ -1,0 +1,144 @@
+package com.aixu.controller;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.aixu.bean.AixuBaseLawsuit;
+import com.aixu.bean.AixuCustomDo;
+import com.aixu.bean.AixuLawsuiDetail;
+import com.aixu.service.AixuCustomDoService;
+import com.aixu.service.BaseInfoDetailService;
+import com.aixu.service.CCBaseInfoService;
+import com.aixu.util.DateUtil;
+
+/**
+ * @desc 接收OA传参
+ * @date 2017年12月25日
+ */
+
+@Controller
+@RequestMapping("/oa")
+public class OAController {
+
+	private final static Logger logger = LoggerFactory.getLogger(OAController.class);
+	@Autowired
+	private CCBaseInfoService cCBaseInfoService;
+	@Autowired
+	private BaseInfoDetailService baseInfoDetailService;
+	@Autowired
+	private AixuCustomDoService aixuCustomDoService;
+
+	/**
+	 * @desc 是否立案回显
+	 * @param lawsuitId
+	 * @param checkLA
+	 * @param callback
+	 * @return
+	 */
+	@PostMapping("/exam1")
+	@ResponseBody
+	@CrossOrigin("*")
+	public String exam1(@RequestParam("lawsuitId") String lawsuitId, @RequestParam("checkLA") String checkLA) {
+		try {
+			logger.info("参数={}", lawsuitId + "-->" + checkLA);
+			cCBaseInfoService.updateOA1checkLA(lawsuitId, checkLA);
+			return "阶段1-OA审批1，成功！";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "阶段1-OA审批1，失败！";
+		}
+	}
+	/*
+	 * @PostMapping("/exam1")
+	 * 
+	 * @ResponseBody
+	 * 
+	 * @CrossOrigin("*") public Object exam1(@RequestParam("lawsuitId")String
+	 * lawsuitId,
+	 * 
+	 * @RequestParam("checkLA")String checkLA, String callback) { try {
+	 * logger.info("参数={}",lawsuitId + "-->" + checkLA);
+	 * cCBaseInfoService.updateOA1checkLA(lawsuitId, checkLA); MappingJacksonValue
+	 * mappingJacksonValue = new MappingJacksonValue("阶段1-OA审批1，成功！");
+	 * mappingJacksonValue.setJsonpFunction(callback); return mappingJacksonValue;
+	 * }catch(Exception e) { e.printStackTrace(); MappingJacksonValue
+	 * mappingJacksonValue = new MappingJacksonValue("阶段1-OA审批1，失败！");
+	 * mappingJacksonValue.setJsonpFunction(callback); return mappingJacksonValue; }
+	 * }
+	 */
+
+	/**
+	 * @desc 接收客户处理信息
+	 * @param lawsuitId
+	 * @param detailsIds
+	 * @param badReasons
+	 * @param innerStrategys
+	 * @param customerIds
+	 * @param judgeReduce
+	 * @param judgeMount
+	 * @param planDate
+	 * @return
+	 */
+	@PostMapping("/exam2")
+	@ResponseBody
+	public boolean exam2(@RequestParam("lawsuitId") String lawsuitId, // 客诉主键
+			@RequestParam("detailsIds[]") String[] detailsIds, // 详情主键
+			@RequestParam("badReasons[]") String[] badReasons, // 不良原因
+			@RequestParam("innerStrategys[]") String[] innerStrategys, // 内部临时对策
+			@RequestParam("customerIdss[]") String[] customerIds, // 客户处理主键
+			@RequestParam("judgeReduces[]") String[] judgeReduces, // 判定降档
+			@RequestParam("judgeMounts[]") String[] judgeMounts, // 判定数量
+			@RequestParam("planDates[]") String[] planDates // 计划日期
+	) {
+		try {
+			AixuBaseLawsuit aixuBaseLawsuit = cCBaseInfoService.getBaseInfoById(lawsuitId);
+			aixuBaseLawsuit.setLawsuitDanState("阶段4-客户处理OA审批完成");
+
+			//处理客诉详情
+			for (int i = 0; i < detailsIds.length; i++) {
+				AixuLawsuiDetail aixuLawsuiDetail = baseInfoDetailService.getAixuLawsuitDetailById(detailsIds[i]);
+				aixuLawsuiDetail.setBadReason(badReasons[i]);
+				aixuLawsuiDetail.setInnerStrategy(innerStrategys[i]);
+				baseInfoDetailService.updateDetail(aixuLawsuiDetail);
+			}
+
+			//处理客户处理
+			for (int i = 0; i < customerIds.length; i++) {
+				AixuCustomDo aixuCustomDo = aixuCustomDoService.getCustomDoById(customerIds[i]);
+				aixuCustomDo.setJudgeReduce(judgeReduces[i]);
+				aixuCustomDo.setJudgeMount(Integer.parseInt(judgeMounts[i]));
+				aixuCustomDo.setPlanDate(DateUtil.getDateFormat(planDates[i]));
+				aixuCustomDo.setHandleState("OA审批完成");
+				aixuCustomDoService.updateCustomer(aixuCustomDo);
+			}
+			
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info("<--OA审批客户处理反馈失败-->");
+			return false;
+		}
+
+	}
+
+	/**
+	 * @desc  接收责任认定信息
+	 * @param lawsuitId
+	 * @param zrrdIds
+	 * @param clyjs
+	 * @return
+	 */
+	@PostMapping("/exam3")
+	@ResponseBody
+	public Object exam3(@RequestParam("lawsuitId") String lawsuitId, @RequestParam("zrrdIds[]") String[] zrrdIds,
+			@RequestParam("clyjs[]") String[] clyjs) {
+		return null;
+	}
+}

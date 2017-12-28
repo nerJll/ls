@@ -1,0 +1,145 @@
+$('#mySearch').bind('click', function() {
+	var $range = $('#dateRange').val()// 投诉日期范围
+	var $customName = $('#customName').find('option:selected').text()// 客户名称
+	var $customNo = $('#customNo').val()// 客户编码
+	var $productType = $('#productType').find('option:selected').text()// 产品型号
+	var $dutyFactory = $('#dutyFactory').val()// 责任工厂
+	// base-url
+	var url = propath() + '/lawsuit/list-all?';
+	// 传参判断
+	if (!emptyFun($range)){
+		var st = $range.substr(0,10)// 开始
+		var ed = $range.substr(13,22)// 结束	
+		url += '&st=' + st + '&ed=' + ed
+	}
+	if (!emptyFun($customName && $customName != '请选择')){
+		url += '&customName=' + $customName
+	}
+	if (!emptyFun($customNo) && $customNo.trim() != ''){
+		url += '&customNo=' + $customNo
+	}
+	if (!emptyFun($productType) && $productType != '请选择'){
+		url += '&productType=' + $productType
+	}
+	if (!emptyFun($dutyFactory)){
+		url += '&dutyFactory=' + $dutyFactory
+	}
+	console.log(url)
+	
+	// 重新渲染data-grid
+	$('#myTable').datagrid({
+		method: 'get',
+		url: url,
+		pagination:true,
+		pageSize:20,
+		rownumbers: true,
+		singleSelect: true,
+		striped: true,
+		columns : [ [ 
+			{field: 'id', hidden: true},
+			{field: 'lawsuitNo', title: '客诉单编码', width:150, align: 'center'},
+			{field: 'customName', title: '客户名称', width: 100, align: 'center'},
+		    {field: 'customNo', title: '客户编码', width: 100, align: 'center'},
+		    {field: 'productType', title: '产品型号', width: 100, align: 'center'},
+		    {field: 'isNeedRep', title: '客户是否需要报告', width: 150, align: 'center'},
+		    {field: 'complainMount', title: '投诉数量', width: 100, align: 'center'},
+		    {field: 'complainDate', title: '投诉日期', width: 130, align: 'center'},
+		    {field: 'customState', title: '客户处理状态', width: 100, align: 'center', formatter: statusFormat},//* 进度条
+		    {field: 'dangerousGoodsState', title: '风险品处理状态', width: 100, align: 'center', formatter: statusFormat},//* 风线品
+		    {field: 'reformState', title: '整改状态', width: 80, align: 'center', formatter: statusFormat},
+		    {field: 'dutyState', title: '责任认定状态', width: 140, align: 'center', formatter: statusFormat}
+		] ],
+		frozenColumns:[ [ 
+			{field: '_operate', title: '操作', width: 100, align: 'center',formatter: formatOper}
+		] ],
+		onDblClickRow: function (index, row) { // 双击AJax查询事件
+				$.ajax({
+					type: 'GET',
+					url: propath() + '/lawsuit/get/' + row.id,
+					async: true,
+					beforeSend: function () {
+						ii = layer.load(1, {shade: [0.1,'#fff']})
+					},
+					success: function (data) {
+						var tpl = ''
+						for (i in data.bean.zd1s) {
+							tpl += '<tr>'+
+										'<td>客诉类型:</td>' +
+										'<td>' + data.bean.zd1s[i].lawsuitTpye + '</td>' +
+										'<td>客诉详情:</td>' +
+										'<td>' + data.bean.zd1s[i].lawsuitTpyeDetail + '</td>' +
+										'<td>投诉数量:</td>' +
+										'<td>' + data.bean.zd1s[i].complainMount + '</td>' +
+									'</tr>'
+						}
+						var $ul = $('#detail').find('table')
+						$ul.empty().append(tpl) // 先清空后填充
+						// 图形化
+						$('#chartx').empty()
+						var option = {
+							innerRadius: 45,
+							animation: true
+						}
+						Chartx.pie('chartx', data.charData, option);
+					},
+					complete: function () {
+        				layer.close(ii);
+    				}
+				});
+				$('#detail').window('open')
+			}
+	})
+})
+
+// 导出Excel
+$('#myExcel').bind('click', function() {
+	
+	layer.confirm('确定导出Excel？', {
+		  btn: ['是','否'] //按钮
+		}, function(){
+		  location.href = propath() + '/lawsuit/export/excel'
+		  layer.msg('导出完成！', {icon: 1, anim: 1});
+		});
+	
+})
+
+// test layerTip
+$('#customNo').bind('focus', function () {
+	layer.tips('模糊查询客户编码', '#customNo', {
+	  tips: [3, '#3595CC'],
+	  time: 2000
+	});
+})
+
+// 跳转到新增界面
+$('#newTab').bind('click', function () {
+	window.open(propath() + '/ccbaseinfo/toAddBaseInfo')
+})
+
+// 状态判断
+function statusFormat(value) {
+	if (value == '处理中' || value == '认定中' || value == '整改中') {
+		return '<span class="layui-badge">' + value + '</span>'
+	}
+	if (value == '已完成') {
+		return '<span class="layui-badge layui-bg-green">' + value + '</span>'
+	}
+	if (value == '验证中') {
+		return '<span class="layui-badge layui-bg-orange"><p style="color: black;">' + value + '</p></span>'
+	}
+}
+
+// data-grid查看按钮
+function formatOper (val, row, index) {  
+    return '<span class="layui-badge-rim" onclick="editUser('+index+')">查看</span>';  
+}
+// 触发函数
+function editUser(index){  
+    $('#myTable').datagrid('selectRow',index)
+    var row = $('#myTable').datagrid('getSelected')
+    console.log(row)
+    var url = propath() + '/exam1/checkAndMaintKHCL'
+    var $form = $('<form></form>').attr('action', url).attr('method', 'post').attr('target', '_blank')
+    $form.append($('<input></input>').attr('type', 'hidden').attr('name', 'lawsuitId').attr("value", row.id))
+	$form.appendTo('body').submit().remove()
+}

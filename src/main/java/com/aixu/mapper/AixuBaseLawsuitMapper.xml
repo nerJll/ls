@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aixu.dao.AixuBaseLawsuitMapper" >
+  <resultMap id="BaseResultMap" type="com.aixu.bean.AixuBaseLawsuit" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="lawsuit_no" property="lawsuitNo" jdbcType="VARCHAR" />
+    <result column="custom_name" property="customName" jdbcType="VARCHAR" />
+    <result column="custom_no" property="customNo" jdbcType="VARCHAR" />
+    <result column="complain_date" property="complainDate" jdbcType="DATE" />
+    <result column="product_type" property="productType" jdbcType="VARCHAR" />
+    <result column="product_no" property="productNo" jdbcType="VARCHAR" />
+    <result column="deliver_seq" property="deliverSeq" jdbcType="VARCHAR" />
+    <result column="sales_no" property="salesNo" jdbcType="VARCHAR" />
+    <result column="duty_factory" property="dutyFactory" jdbcType="VARCHAR" />
+    <result column="apply_name" property="applyName" jdbcType="VARCHAR" />
+    <result column="apply_no" property="applyNo" jdbcType="VARCHAR" />
+    <result column="is_need_rep" property="isNeedRep" jdbcType="VARCHAR" />
+    <result column="lawsuit_state" property="lawsuitState" jdbcType="VARCHAR" />
+    <result column="lawsuit_dan_state" property="lawsuitDanState" jdbcType="VARCHAR" />
+    <result column="fid" property="fid" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="res_one" property="resOne" jdbcType="VARCHAR" />
+    <result column="res_two" property="resTwo" jdbcType="VARCHAR" />
+    <result column="res_three" property="resThree" jdbcType="VARCHAR" />
+    <result column="res_four" property="resFour" jdbcType="VARCHAR" />
+    <result column="res_five" property="resFive" jdbcType="VARCHAR" />
+    <result column="res_six" property="resSix" jdbcType="VARCHAR" />
+    <result column="res_seven" property="resSeven" jdbcType="VARCHAR" />
+    <result column="res_eight" property="resEight" jdbcType="VARCHAR" />
+    <result column="res_nine" property="resNine" jdbcType="VARCHAR" />
+    <result column="res_ten" property="resTen" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.aixu.bean.AixuBaseLawsuit" extends="BaseResultMap" >
+    <result column="file_src" property="fileSrc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, lawsuit_no, custom_name, custom_no, complain_date, product_type, product_no, 
+    deliver_seq, sales_no, duty_factory, apply_name, apply_no, is_need_rep, lawsuit_state, 
+    lawsuit_dan_state, fid, create_time, res_one, res_two, res_three, res_four, res_five, 
+    res_six, res_seven, res_eight, res_nine, res_ten
+  </sql>
+  <sql id="Blob_Column_List" >
+    file_src
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.aixu.bean.AixuBaseLawsuitExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from aixu_base_lawsuit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.aixu.bean.AixuBaseLawsuitExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aixu_base_lawsuit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from aixu_base_lawsuit
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from aixu_base_lawsuit
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aixu.bean.AixuBaseLawsuitExample" >
+    delete from aixu_base_lawsuit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.aixu.bean.AixuBaseLawsuit" >
+    insert into aixu_base_lawsuit (id, lawsuit_no, custom_name, 
+      custom_no, complain_date, product_type, 
+      product_no, deliver_seq, sales_no, 
+      duty_factory, apply_name, apply_no, 
+      is_need_rep, lawsuit_state, lawsuit_dan_state, 
+      fid, create_time, res_one, 
+      res_two, res_three, res_four, 
+      res_five, res_six, res_seven, 
+      res_eight, res_nine, res_ten, 
+      file_src)
+    values (#{id,jdbcType=VARCHAR}, #{lawsuitNo,jdbcType=VARCHAR}, #{customName,jdbcType=VARCHAR}, 
+      #{customNo,jdbcType=VARCHAR}, #{complainDate,jdbcType=DATE}, #{productType,jdbcType=VARCHAR}, 
+      #{productNo,jdbcType=VARCHAR}, #{deliverSeq,jdbcType=VARCHAR}, #{salesNo,jdbcType=VARCHAR}, 
+      #{dutyFactory,jdbcType=VARCHAR}, #{applyName,jdbcType=VARCHAR}, #{applyNo,jdbcType=VARCHAR}, 
+      #{isNeedRep,jdbcType=VARCHAR}, #{lawsuitState,jdbcType=VARCHAR}, #{lawsuitDanState,jdbcType=VARCHAR}, 
+      #{fid,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{resOne,jdbcType=VARCHAR}, 
+      #{resTwo,jdbcType=VARCHAR}, #{resThree,jdbcType=VARCHAR}, #{resFour,jdbcType=VARCHAR}, 
+      #{resFive,jdbcType=VARCHAR}, #{resSix,jdbcType=VARCHAR}, #{resSeven,jdbcType=VARCHAR}, 
+      #{resEight,jdbcType=VARCHAR}, #{resNine,jdbcType=VARCHAR}, #{resTen,jdbcType=VARCHAR}, 
+      #{fileSrc,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aixu.bean.AixuBaseLawsuit" >
+    insert into aixu_base_lawsuit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="lawsuitNo != null" >
+        lawsuit_no,
+      </if>
+      <if test="customName != null" >
+        custom_name,
+      </if>
+      <if test="customNo != null" >
+        custom_no,
+      </if>
+      <if test="complainDate != null" >
+        complain_date,
+      </if>
+      <if test="productType != null" >
+        product_type,
+      </if>
+      <if test="productNo != null" >
+        product_no,
+      </if>
+      <if test="deliverSeq != null" >
+        deliver_seq,
+      </if>
+      <if test="salesNo != null" >
+        sales_no,
+      </if>
+      <if test="dutyFactory != null" >
+        duty_factory,
+      </if>
+      <if test="applyName != null" >
+        apply_name,
+      </if>
+      <if test="applyNo != null" >
+        apply_no,
+      </if>
+      <if test="isNeedRep != null" >
+        is_need_rep,
+      </if>
+      <if test="lawsuitState != null" >
+        lawsuit_state,
+      </if>
+      <if test="lawsuitDanState != null" >
+        lawsuit_dan_state,
+      </if>
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="resOne != null" >
+        res_one,
+      </if>
+      <if test="resTwo != null" >
+        res_two,
+      </if>
+      <if test="resThree != null" >
+        res_three,
+      </if>
+      <if test="resFour != null" >
+        res_four,
+      </if>
+      <if test="resFive != null" >
+        res_five,
+      </if>
+      <if test="resSix != null" >
+        res_six,
+      </if>
+      <if test="resSeven != null" >
+        res_seven,
+      </if>
+      <if test="resEight != null" >
+        res_eight,
+      </if>
+      <if test="resNine != null" >
+        res_nine,
+      </if>
+      <if test="resTen != null" >
+        res_ten,
+      </if>
+      <if test="fileSrc != null" >
+        file_src,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="lawsuitNo != null" >
+        #{lawsuitNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customName != null" >
+        #{customName,jdbcType=VARCHAR},
+      </if>
+      <if test="customNo != null" >
+        #{customNo,jdbcType=VARCHAR},
+      </if>
+      <if test="complainDate != null" >
+        #{complainDate,jdbcType=DATE},
+      </if>
+      <if test="productType != null" >
+        #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="productNo != null" >
+        #{productNo,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverSeq != null" >
+        #{deliverSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="salesNo != null" >
+        #{salesNo,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyFactory != null" >
+        #{dutyFactory,jdbcType=VARCHAR},
+      </if>
+      <if test="applyName != null" >
+        #{applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyNo != null" >
+        #{applyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="isNeedRep != null" >
+        #{isNeedRep,jdbcType=VARCHAR},
+      </if>
+      <if test="lawsuitState != null" >
+        #{lawsuitState,jdbcType=VARCHAR},
+      </if>
+      <if test="lawsuitDanState != null" >
+        #{lawsuitDanState,jdbcType=VARCHAR},
+      </if>
+      <if test="fid != null" >
+        #{fid,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resOne != null" >
+        #{resOne,jdbcType=VARCHAR},
+      </if>
+      <if test="resTwo != null" >
+        #{resTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="resThree != null" >
+        #{resThree,jdbcType=VARCHAR},
+      </if>
+      <if test="resFour != null" >
+        #{resFour,jdbcType=VARCHAR},
+      </if>
+      <if test="resFive != null" >
+        #{resFive,jdbcType=VARCHAR},
+      </if>
+      <if test="resSix != null" >
+        #{resSix,jdbcType=VARCHAR},
+      </if>
+      <if test="resSeven != null" >
+        #{resSeven,jdbcType=VARCHAR},
+      </if>
+      <if test="resEight != null" >
+        #{resEight,jdbcType=VARCHAR},
+      </if>
+      <if test="resNine != null" >
+        #{resNine,jdbcType=VARCHAR},
+      </if>
+      <if test="resTen != null" >
+        #{resTen,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSrc != null" >
+        #{fileSrc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aixu.bean.AixuBaseLawsuitExample" resultType="java.lang.Integer" >
+    select count(*) from aixu_base_lawsuit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aixu_base_lawsuit
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lawsuitNo != null" >
+        lawsuit_no = #{record.lawsuitNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customName != null" >
+        custom_name = #{record.customName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customNo != null" >
+        custom_no = #{record.customNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.complainDate != null" >
+        complain_date = #{record.complainDate,jdbcType=DATE},
+      </if>
+      <if test="record.productType != null" >
+        product_type = #{record.productType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productNo != null" >
+        product_no = #{record.productNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliverSeq != null" >
+        deliver_seq = #{record.deliverSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salesNo != null" >
+        sales_no = #{record.salesNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dutyFactory != null" >
+        duty_factory = #{record.dutyFactory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyName != null" >
+        apply_name = #{record.applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyNo != null" >
+        apply_no = #{record.applyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isNeedRep != null" >
+        is_need_rep = #{record.isNeedRep,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lawsuitState != null" >
+        lawsuit_state = #{record.lawsuitState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lawsuitDanState != null" >
+        lawsuit_dan_state = #{record.lawsuitDanState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fid != null" >
+        fid = #{record.fid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.resOne != null" >
+        res_one = #{record.resOne,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resTwo != null" >
+        res_two = #{record.resTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resThree != null" >
+        res_three = #{record.resThree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resFour != null" >
+        res_four = #{record.resFour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resFive != null" >
+        res_five = #{record.resFive,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resSix != null" >
+        res_six = #{record.resSix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resSeven != null" >
+        res_seven = #{record.resSeven,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resEight != null" >
+        res_eight = #{record.resEight,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resNine != null" >
+        res_nine = #{record.resNine,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resTen != null" >
+        res_ten = #{record.resTen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileSrc != null" >
+        file_src = #{record.fileSrc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update aixu_base_lawsuit
+    set id = #{record.id,jdbcType=VARCHAR},
+      lawsuit_no = #{record.lawsuitNo,jdbcType=VARCHAR},
+      custom_name = #{record.customName,jdbcType=VARCHAR},
+      custom_no = #{record.customNo,jdbcType=VARCHAR},
+      complain_date = #{record.complainDate,jdbcType=DATE},
+      product_type = #{record.productType,jdbcType=VARCHAR},
+      product_no = #{record.productNo,jdbcType=VARCHAR},
+      deliver_seq = #{record.deliverSeq,jdbcType=VARCHAR},
+      sales_no = #{record.salesNo,jdbcType=VARCHAR},
+      duty_factory = #{record.dutyFactory,jdbcType=VARCHAR},
+      apply_name = #{record.applyName,jdbcType=VARCHAR},
+      apply_no = #{record.applyNo,jdbcType=VARCHAR},
+      is_need_rep = #{record.isNeedRep,jdbcType=VARCHAR},
+      lawsuit_state = #{record.lawsuitState,jdbcType=VARCHAR},
+      lawsuit_dan_state = #{record.lawsuitDanState,jdbcType=VARCHAR},
+      fid = #{record.fid,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      res_one = #{record.resOne,jdbcType=VARCHAR},
+      res_two = #{record.resTwo,jdbcType=VARCHAR},
+      res_three = #{record.resThree,jdbcType=VARCHAR},
+      res_four = #{record.resFour,jdbcType=VARCHAR},
+      res_five = #{record.resFive,jdbcType=VARCHAR},
+      res_six = #{record.resSix,jdbcType=VARCHAR},
+      res_seven = #{record.resSeven,jdbcType=VARCHAR},
+      res_eight = #{record.resEight,jdbcType=VARCHAR},
+      res_nine = #{record.resNine,jdbcType=VARCHAR},
+      res_ten = #{record.resTen,jdbcType=VARCHAR},
+      file_src = #{record.fileSrc,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aixu_base_lawsuit
+    set id = #{record.id,jdbcType=VARCHAR},
+      lawsuit_no = #{record.lawsuitNo,jdbcType=VARCHAR},
+      custom_name = #{record.customName,jdbcType=VARCHAR},
+      custom_no = #{record.customNo,jdbcType=VARCHAR},
+      complain_date = #{record.complainDate,jdbcType=DATE},
+      product_type = #{record.productType,jdbcType=VARCHAR},
+      product_no = #{record.productNo,jdbcType=VARCHAR},
+      deliver_seq = #{record.deliverSeq,jdbcType=VARCHAR},
+      sales_no = #{record.salesNo,jdbcType=VARCHAR},
+      duty_factory = #{record.dutyFactory,jdbcType=VARCHAR},
+      apply_name = #{record.applyName,jdbcType=VARCHAR},
+      apply_no = #{record.applyNo,jdbcType=VARCHAR},
+      is_need_rep = #{record.isNeedRep,jdbcType=VARCHAR},
+      lawsuit_state = #{record.lawsuitState,jdbcType=VARCHAR},
+      lawsuit_dan_state = #{record.lawsuitDanState,jdbcType=VARCHAR},
+      fid = #{record.fid,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      res_one = #{record.resOne,jdbcType=VARCHAR},
+      res_two = #{record.resTwo,jdbcType=VARCHAR},
+      res_three = #{record.resThree,jdbcType=VARCHAR},
+      res_four = #{record.resFour,jdbcType=VARCHAR},
+      res_five = #{record.resFive,jdbcType=VARCHAR},
+      res_six = #{record.resSix,jdbcType=VARCHAR},
+      res_seven = #{record.resSeven,jdbcType=VARCHAR},
+      res_eight = #{record.resEight,jdbcType=VARCHAR},
+      res_nine = #{record.resNine,jdbcType=VARCHAR},
+      res_ten = #{record.resTen,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aixu.bean.AixuBaseLawsuit" >
+    update aixu_base_lawsuit
+    <set >
+      <if test="lawsuitNo != null" >
+        lawsuit_no = #{lawsuitNo,jdbcType=VARCHAR},
+      </if>
+      <if test="customName != null" >
+        custom_name = #{customName,jdbcType=VARCHAR},
+      </if>
+      <if test="customNo != null" >
+        custom_no = #{customNo,jdbcType=VARCHAR},
+      </if>
+      <if test="complainDate != null" >
+        complain_date = #{complainDate,jdbcType=DATE},
+      </if>
+      <if test="productType != null" >
+        product_type = #{productType,jdbcType=VARCHAR},
+      </if>
+      <if test="productNo != null" >
+        product_no = #{productNo,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverSeq != null" >
+        deliver_seq = #{deliverSeq,jdbcType=VARCHAR},
+      </if>
+      <if test="salesNo != null" >
+        sales_no = #{salesNo,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyFactory != null" >
+        duty_factory = #{dutyFactory,jdbcType=VARCHAR},
+      </if>
+      <if test="applyName != null" >
+        apply_name = #{applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyNo != null" >
+        apply_no = #{applyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="isNeedRep != null" >
+        is_need_rep = #{isNeedRep,jdbcType=VARCHAR},
+      </if>
+      <if test="lawsuitState != null" >
+        lawsuit_state = #{lawsuitState,jdbcType=VARCHAR},
+      </if>
+      <if test="lawsuitDanState != null" >
+        lawsuit_dan_state = #{lawsuitDanState,jdbcType=VARCHAR},
+      </if>
+      <if test="fid != null" >
+        fid = #{fid,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resOne != null" >
+        res_one = #{resOne,jdbcType=VARCHAR},
+      </if>
+      <if test="resTwo != null" >
+        res_two = #{resTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="resThree != null" >
+        res_three = #{resThree,jdbcType=VARCHAR},
+      </if>
+      <if test="resFour != null" >
+        res_four = #{resFour,jdbcType=VARCHAR},
+      </if>
+      <if test="resFive != null" >
+        res_five = #{resFive,jdbcType=VARCHAR},
+      </if>
+      <if test="resSix != null" >
+        res_six = #{resSix,jdbcType=VARCHAR},
+      </if>
+      <if test="resSeven != null" >
+        res_seven = #{resSeven,jdbcType=VARCHAR},
+      </if>
+      <if test="resEight != null" >
+        res_eight = #{resEight,jdbcType=VARCHAR},
+      </if>
+      <if test="resNine != null" >
+        res_nine = #{resNine,jdbcType=VARCHAR},
+      </if>
+      <if test="resTen != null" >
+        res_ten = #{resTen,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSrc != null" >
+        file_src = #{fileSrc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.aixu.bean.AixuBaseLawsuit" >
+    update aixu_base_lawsuit
+    set lawsuit_no = #{lawsuitNo,jdbcType=VARCHAR},
+      custom_name = #{customName,jdbcType=VARCHAR},
+      custom_no = #{customNo,jdbcType=VARCHAR},
+      complain_date = #{complainDate,jdbcType=DATE},
+      product_type = #{productType,jdbcType=VARCHAR},
+      product_no = #{productNo,jdbcType=VARCHAR},
+      deliver_seq = #{deliverSeq,jdbcType=VARCHAR},
+      sales_no = #{salesNo,jdbcType=VARCHAR},
+      duty_factory = #{dutyFactory,jdbcType=VARCHAR},
+      apply_name = #{applyName,jdbcType=VARCHAR},
+      apply_no = #{applyNo,jdbcType=VARCHAR},
+      is_need_rep = #{isNeedRep,jdbcType=VARCHAR},
+      lawsuit_state = #{lawsuitState,jdbcType=VARCHAR},
+      lawsuit_dan_state = #{lawsuitDanState,jdbcType=VARCHAR},
+      fid = #{fid,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      res_one = #{resOne,jdbcType=VARCHAR},
+      res_two = #{resTwo,jdbcType=VARCHAR},
+      res_three = #{resThree,jdbcType=VARCHAR},
+      res_four = #{resFour,jdbcType=VARCHAR},
+      res_five = #{resFive,jdbcType=VARCHAR},
+      res_six = #{resSix,jdbcType=VARCHAR},
+      res_seven = #{resSeven,jdbcType=VARCHAR},
+      res_eight = #{resEight,jdbcType=VARCHAR},
+      res_nine = #{resNine,jdbcType=VARCHAR},
+      res_ten = #{resTen,jdbcType=VARCHAR},
+      file_src = #{fileSrc,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aixu.bean.AixuBaseLawsuit" >
+    update aixu_base_lawsuit
+    set lawsuit_no = #{lawsuitNo,jdbcType=VARCHAR},
+      custom_name = #{customName,jdbcType=VARCHAR},
+      custom_no = #{customNo,jdbcType=VARCHAR},
+      complain_date = #{complainDate,jdbcType=DATE},
+      product_type = #{productType,jdbcType=VARCHAR},
+      product_no = #{productNo,jdbcType=VARCHAR},
+      deliver_seq = #{deliverSeq,jdbcType=VARCHAR},
+      sales_no = #{salesNo,jdbcType=VARCHAR},
+      duty_factory = #{dutyFactory,jdbcType=VARCHAR},
+      apply_name = #{applyName,jdbcType=VARCHAR},
+      apply_no = #{applyNo,jdbcType=VARCHAR},
+      is_need_rep = #{isNeedRep,jdbcType=VARCHAR},
+      lawsuit_state = #{lawsuitState,jdbcType=VARCHAR},
+      lawsuit_dan_state = #{lawsuitDanState,jdbcType=VARCHAR},
+      fid = #{fid,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      res_one = #{resOne,jdbcType=VARCHAR},
+      res_two = #{resTwo,jdbcType=VARCHAR},
+      res_three = #{resThree,jdbcType=VARCHAR},
+      res_four = #{resFour,jdbcType=VARCHAR},
+      res_five = #{resFive,jdbcType=VARCHAR},
+      res_six = #{resSix,jdbcType=VARCHAR},
+      res_seven = #{resSeven,jdbcType=VARCHAR},
+      res_eight = #{resEight,jdbcType=VARCHAR},
+      res_nine = #{resNine,jdbcType=VARCHAR},
+      res_ten = #{resTen,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
