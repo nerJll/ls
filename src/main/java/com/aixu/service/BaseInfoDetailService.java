@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.aixu.bean.AixuLawsuiDetail;
 import com.aixu.bean.AixuLawsuiDetailExample;
@@ -27,6 +28,7 @@ public class BaseInfoDetailService {
 	 * @param aixuLawsuiDetails
 	 * @return
 	 */
+	@Transactional
 	public boolean saveBaseInfoDetail(List<AixuLawsuiDetail> aixuLawsuiDetails) {
 		try {
 			for(int i=0; i<aixuLawsuiDetails.size(); i++) {
@@ -65,6 +67,7 @@ public class BaseInfoDetailService {
 	 * @param aixuLawsuiDetail
 	 * @return
 	 */
+	@Transactional
 	public boolean updateDetail(AixuLawsuiDetail aixuLawsuiDetail) {
 		try {
 			aixuLawsuiDetailMapper.updateByPrimaryKeySelective(aixuLawsuiDetail);

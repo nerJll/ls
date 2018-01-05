@@ -92,7 +92,7 @@ public class OAUtils_Send {
 				wrti[4].setEdit(true);
 
 				wrti[5] = new WorkflowRequestTableField();
-				wrti[5].setFieldName("aixu_base_lawsuit");// 主键id
+				wrti[5].setFieldName("id_aixu_base_lawsuit");// 主键id
 				wrti[5].setFieldValue(aixuBaseLawsuit.getId());
 				wrti[5].setView(true);
 				wrti[5].setEdit(true);
@@ -156,12 +156,13 @@ public class OAUtils_Send {
 				 * wrti[15].setFieldName("apply_name");// 申请人姓名
 				 * wrti[15].setFieldValue(aixuBaseLawsuit.getApplyName());
 				 * wrti[15].setView(true); wrti[15].setEdit(true);
-				 * 
-				 * wrti[16] = new WorkflowRequestTableField();
-				 * wrti[16].setFieldName("apply_no");// 申请人工号
-				 * wrti[16].setFieldValue(aixuBaseLawsuit.getApplyNo()); wrti[16].setView(true);
-				 * wrti[16].setEdit(true);
-				 */
+				 * */
+				wrti[16] = new WorkflowRequestTableField();
+				wrti[16].setFieldName("apply_no");// 申请人工号
+				wrti[16].setFieldValue(aixuBaseLawsuit.getApplyNo()); 
+				wrti[16].setView(true);
+				wrti[16].setEdit(true);
+				 
 
 				wrti[17] = new WorkflowRequestTableField();
 				wrti[17].setFieldName("is_need_rep");// 客户是否需要报告
@@ -198,8 +199,11 @@ public class OAUtils_Send {
 					}
 				}
 				
-				
-				requestInfo.setRequestName("QS04_1-客诉申请单1");
+				if("752".equals(workflowId)) {
+					requestInfo.setRequestName("QS05_5-客诉申请单1");
+				}else if("759".equals(workflowId)) {
+					requestInfo.setRequestName("QS05_5-客诉申请单2");
+				}
 				// 只有一个主表单
 				WorkflowRequestTableRecord[] wrtri = new WorkflowRequestTableRecord[1];
 				wrtri[0] = new WorkflowRequestTableRecord();
@@ -219,7 +223,7 @@ public class OAUtils_Send {
 					// 字段
 					WorkflowRequestTableField[] wrti = new WorkflowRequestTableField[30];
 					wrti[0] = new WorkflowRequestTableField();
-					wrti[0].setFieldName("lawsui_detail");// 主键id
+					wrti[0].setFieldName("id_aixu_lawsui_detail");// 主键id
 					wrti[0].setFieldValue(aixuLawsuiDetails.get(i).getId());
 					// wrti[0].setFieldValue("001");
 					wrti[0].setView(true);// 字段是否可见
@@ -284,7 +288,7 @@ public class OAUtils_Send {
 					// 字段
 					WorkflowRequestTableField[] wrti = new WorkflowRequestTableField[30];
 					wrti[0] = new WorkflowRequestTableField();
-					wrti[0].setFieldName("custom_do_id");// 主键
+					wrti[0].setFieldName("id_aixu_custom_do");// 主键
 					wrti[0].setFieldValue(aixuCustomDos.get(i).getId());
 					// wrti[0].setFieldValue("3344");
 					wrti[0].setView(true);// 字段是否可见
@@ -446,7 +450,7 @@ public class OAUtils_Send {
 				wrti[4].setEdit(true);
 
 				wrti[5] = new WorkflowRequestTableField();
-				wrti[5].setFieldName("aixu_base_lawsuit");// 主键id
+				wrti[5].setFieldName("id_aixu_base_lawsuit");// 主键id
 				wrti[5].setFieldValue(aixuBaseLawsuit.getId());
 				wrti[5].setView(true);
 				wrti[5].setEdit(true);
@@ -505,17 +509,18 @@ public class OAUtils_Send {
 				wrti[14].setView(true);
 				wrti[14].setEdit(true);
 
-				/*
-				 * wrti[15] = new WorkflowRequestTableField();
-				 * wrti[15].setFieldName("apply_name");// 申请人姓名
-				 * wrti[15].setFieldValue(aixuBaseLawsuit.getApplyName());
-				 * wrti[15].setView(true); wrti[15].setEdit(true);
-				 * 
-				 * wrti[16] = new WorkflowRequestTableField();
-				 * wrti[16].setFieldName("apply_no");// 申请人工号
-				 * wrti[16].setFieldValue(aixuBaseLawsuit.getApplyNo()); wrti[16].setView(true);
-				 * wrti[16].setEdit(true);
-				 */
+				
+				/* wrti[15] = new WorkflowRequestTableField();
+				 wrti[15].setFieldName("apply_name");// 申请人姓名
+				 wrti[15].setFieldValue(aixuBaseLawsuit.getApplyName());
+				 wrti[15].setView(true); wrti[15].setEdit(true);*/
+				  
+				 wrti[16] = new WorkflowRequestTableField();
+				 wrti[16].setFieldName("apply_no");// 申请人工号
+				 wrti[16].setFieldValue(aixuBaseLawsuit.getApplyNo()); 
+				 wrti[16].setView(true);
+				 wrti[16].setEdit(true);
+				 
 
 				wrti[17] = new WorkflowRequestTableField();
 				wrti[17].setFieldName("is_need_rep");// 客户是否需要报告
@@ -552,7 +557,7 @@ public class OAUtils_Send {
 					}
 				}
 
-				requestInfo.setRequestName("QS04_2-客诉申请单2");
+				requestInfo.setRequestName("QS05_5-客诉申请单3");
 				// 只有一个主表单
 				WorkflowRequestTableRecord[] wrtri = new WorkflowRequestTableRecord[1];
 				wrtri[0] = new WorkflowRequestTableRecord();
@@ -572,7 +577,7 @@ public class OAUtils_Send {
 					// 字段
 					WorkflowRequestTableField[] wrti = new WorkflowRequestTableField[30];
 					wrti[0] = new WorkflowRequestTableField();
-					wrti[0].setFieldName("lawsui_detail");// 主键id
+					wrti[0].setFieldName("id_aixu_lawsui_detail");// 主键id
 					wrti[0].setFieldValue(aixuLawsuiDetails.get(i).getId());
 					// wrti[0].setFieldValue("001");
 					wrti[0].setView(true);// 字段是否可见
@@ -799,7 +804,7 @@ public class OAUtils_Send {
 				wrti[4].setEdit(true);
 
 				wrti[5] = new WorkflowRequestTableField();
-				wrti[5].setFieldName("aixu_base_lawsuit");// 主键id
+				wrti[5].setFieldName("id_aixu_base_lawsuit");// 主键id
 				wrti[5].setFieldValue(aixuBaseLawsuit.getId());
 				wrti[5].setView(true);
 				wrti[5].setEdit(true);
@@ -859,16 +864,19 @@ public class OAUtils_Send {
 				wrti[14].setEdit(true);
 
 				/*
-				 * wrti[15] = new WorkflowRequestTableField();
-				 * wrti[15].setFieldName("apply_name");// 申请人姓名
-				 * wrti[15].setFieldValue(aixuBaseLawsuit.getApplyName());
-				 * wrti[15].setView(true); wrti[15].setEdit(true);
-				 * 
-				 * wrti[16] = new WorkflowRequestTableField();
-				 * wrti[16].setFieldName("apply_no");// 申请人工号
-				 * wrti[16].setFieldValue(aixuBaseLawsuit.getApplyNo()); wrti[16].setView(true);
-				 * wrti[16].setEdit(true);
-				 */
+				 wrti[15] = new WorkflowRequestTableField();
+				 wrti[15].setFieldName("apply_name");// 申请人姓名
+				 wrti[15].setFieldValue(aixuBaseLawsuit.getApplyName());
+				 wrti[15].setView(true); 
+				 wrti[15].setEdit(true);
+				*/
+				
+				wrti[16] = new WorkflowRequestTableField();
+				wrti[16].setFieldName("apply_no");// 申请人工号
+				wrti[16].setFieldValue(aixuBaseLawsuit.getApplyNo()); 
+				wrti[16].setView(true);
+				wrti[16].setEdit(true);
+				 
 
 				wrti[17] = new WorkflowRequestTableField();
 				wrti[17].setFieldName("is_need_rep");// 客户是否需要报告
@@ -888,6 +896,12 @@ public class OAUtils_Send {
 				wrti[19].setView(true);
 				wrti[19].setEdit(true);
 
+				wrti[20] = new WorkflowRequestTableField();
+				wrti[20].setFieldName("res_nine"); // 推送部门id
+				wrti[20].setFieldValue(DepFactory.getDepIdByName(aixuZrrds.get(0).getZrrdZrbm()));
+				wrti[20].setView(true);
+				wrti[20].setEdit(true);
+				
 				String fileType = "jpeg,bmp,gif,jpg,psd,png,tiff,tga,eps"; 		//文件格式								//文件格式
 				String[] paths = aixuBaseLawsuit.getFileSrc().split(","); // 文件地址
 				
@@ -895,18 +909,18 @@ public class OAUtils_Send {
 					String[] fileNames = paths[i].replaceAll("\\\\","/").split("/"); // 文件名
 					String imgType = fileNames[1].substring(fileNames[1].indexOf(".")+1,fileNames[1].length());
 					if(fileType.toLowerCase().contains(imgType)) {
-						wrti[20+i] = new WorkflowRequestTableField();
-						wrti[20+i].setFieldType("http:" + fileNames[1]);// 文件名
-						wrti[20+i].setFieldName("file_src");// 客诉状态
+						wrti[21+i] = new WorkflowRequestTableField();
+						wrti[21+i].setFieldType("http:" + fileNames[1]);// 文件名
+						wrti[21+i].setFieldName("file_src");// 客诉状态
 						// wrti[19].setFieldValue(aixuBaseLawsuit.getFileSrc());
-						wrti[20+i].setFieldValue("http://portal.aikosolar.com/aixu-lawsuit2/files/" + fileNames[0] + "/" + fileNames[1]);
-						wrti[20+i].setView(true);
-						wrti[20+i].setEdit(true);
+						wrti[21+i].setFieldValue("http://portal.aikosolar.com/aixu-lawsuit2/files/" + fileNames[0] + "/" + fileNames[1]);
+						wrti[21+i].setView(true);
+						wrti[21+i].setEdit(true);
 					}
 				}
 				
 				
-				requestInfo.setRequestName("QS04_4-客诉处理申请4 ");
+				requestInfo.setRequestName("QS05_5-客诉处理申请4 ");
 				// 只有一个主表单
 				WorkflowRequestTableRecord[] wrtri = new WorkflowRequestTableRecord[1];
 				wrtri[0] = new WorkflowRequestTableRecord();
@@ -926,7 +940,7 @@ public class OAUtils_Send {
 					// 字段
 					WorkflowRequestTableField[] wrti = new WorkflowRequestTableField[30];
 					wrti[0] = new WorkflowRequestTableField();
-					wrti[0].setFieldName("lawsui_detail");// 主键id
+					wrti[0].setFieldName("id_aixu_lawsui_detail");// 主键id
 					wrti[0].setFieldValue(aixuLawsuiDetails.get(i).getId());
 					// wrti[0].setFieldValue("001");
 					wrti[0].setView(true);// 字段是否可见
@@ -1027,54 +1041,9 @@ public class OAUtils_Send {
 				WorkflowDetailTableInfo wdtf3 = new WorkflowDetailTableInfo();
 				wdtf3.setWorkflowRequestTableRecords(dtrs3);
 				
-				// 子表单-4
-				WorkflowRequestTableRecord[] dtrs4 = new WorkflowRequestTableRecord[10];// aixuCustomDos.size()
-				for (int i = 0; i < 10; i++) {
-					Map<String, String> map = itemTable.get(i);
-					// 一行
-					WorkflowRequestTableRecord dtr = new WorkflowRequestTableRecord();
-					// 字段
-					WorkflowRequestTableField[] wrti = new WorkflowRequestTableField[30];
-					wrti[0] = new WorkflowRequestTableField();
-					wrti[0].setFieldName("nbfxpcl_pl");// 主键
-					wrti[0].setFieldValue("009");
-					// wrti[0].setFieldValue("3344");
-					wrti[0].setView(true);// 字段是否可见
-					wrti[0].setEdit(true);// 字段是否可编辑
-					
-					dtr.setWorkflowRequestTableFields(wrti);
-					dtrs4[i] = dtr;
-					
-				}
-				WorkflowDetailTableInfo wdtf4 = new WorkflowDetailTableInfo();
-				wdtf4.setWorkflowRequestTableRecords(dtrs4);
-				
-				// 子表单-5
-				WorkflowRequestTableRecord[] dtrs5 = new WorkflowRequestTableRecord[10];// aixuCustomDos.size()
-				for (int i = 0; i < 10; i++) {
-					Map<String, String> map = itemTable.get(i);
-					// 一行
-					WorkflowRequestTableRecord dtr = new WorkflowRequestTableRecord();
-					// 字段
-					WorkflowRequestTableField[] wrti = new WorkflowRequestTableField[30];
-					wrti[0] = new WorkflowRequestTableField();
-					wrti[0].setFieldName("nbzgdc_lx");// 主键
-					wrti[0].setFieldValue("009");
-					// wrti[0].setFieldValue("3344");
-					wrti[0].setView(true);// 字段是否可见
-					wrti[0].setEdit(true);// 字段是否可编辑
-					
-					
-					dtr.setWorkflowRequestTableFields(wrti);
-					dtrs5[i] = dtr;
-					
-				}
-				WorkflowDetailTableInfo wdtf5 = new WorkflowDetailTableInfo();
-				wdtf5.setWorkflowRequestTableRecords(dtrs5);
-				
 				// 子表单-6
-				WorkflowRequestTableRecord[] dtrs6 = new WorkflowRequestTableRecord[10];// aixuCustomDos.size()
-				for (int i = 0; i < 10; i++) {
+				WorkflowRequestTableRecord[] dtrs4 = new WorkflowRequestTableRecord[aixuZrrds.size()];// aixuCustomDos.size()
+				for (int i = 0; i < aixuZrrds.size(); i++) {
 					Map<String, String> map = itemTable.get(i);
 					// 一行
 					WorkflowRequestTableRecord dtr = new WorkflowRequestTableRecord();
@@ -1082,55 +1051,60 @@ public class OAUtils_Send {
 					WorkflowRequestTableField[] wrti = new WorkflowRequestTableField[30];
 					wrti[0] = new WorkflowRequestTableField();
 					wrti[0].setFieldName("zrrd_id");// 主键
-					wrti[0].setFieldValue("009");
+					wrti[0].setFieldValue(aixuZrrds.get(i).getZrrdId());
 					// wrti[0].setFieldValue("3344");
 					wrti[0].setView(true);// 字段是否可见
 					wrti[0].setEdit(true);// 字段是否可编辑
 
 					wrti[1] = new WorkflowRequestTableField();
 					wrti[1].setFieldName("zrrd_zrbm");// 责任部门
-					wrti[1].setFieldValue("009");
+					wrti[1].setFieldValue(aixuZrrds.get(i).getZrrdZrbm());
 					// wrti[1].setFieldValue("342");
 					wrti[1].setView(true);
 					wrti[1].setEdit(true);
 
 					wrti[2] = new WorkflowRequestTableField();
 					wrti[2].setFieldName("zrrd_zrr");// 责任人
-					wrti[2].setFieldValue("009");
+					wrti[2].setFieldValue(aixuZrrds.get(i).getZrrdZrr());
 					// wrti[2].setFieldValue("342");
 					wrti[2].setView(true);
 					wrti[2].setEdit(true);
 
-					wrti[3] = new WorkflowRequestTableField();
-					wrti[3].setFieldName("zrrdYl1");// 处理意见
-					wrti[3].setFieldValue("009");
+					wrti[3] = new WorkflowRequestTableField(); 
+					wrti[3].setFieldName("zrrd_yl1");// 调查意见
+					wrti[3].setFieldValue(aixuZrrds.get(i).getZrrdYl1());
 					// wrti[3].setFieldValue("33");
 					wrti[3].setView(true);
 					wrti[3].setEdit(true);
 
 					wrti[4] = new WorkflowRequestTableField();
-					wrti[4].setFieldName("zrrd_ksgldid");// 客诉管理单id
-					wrti[4].setFieldValue("009");
+					wrti[4].setFieldName("zrrd_clyj");// 处理意见
+					wrti[4].setFieldValue(aixuZrrds.get(i).getZrrdClyj());
 					// wrti[4].setFieldValue("34");
 					wrti[4].setView(true);
 					wrti[4].setEdit(true);
+					
+					wrti[5] = new WorkflowRequestTableField();
+					wrti[5].setFieldName("zrrd_ksgldid");// 客诉管理单id
+					wrti[5].setFieldValue(aixuZrrds.get(i).getZrrdKsgldid());
+					// wrti[4].setFieldValue("34");
+					wrti[5].setView(true);
+					wrti[5].setEdit(true);
 
 					dtr.setWorkflowRequestTableFields(wrti);
-					dtrs6[i] = dtr;
+					dtrs4[i] = dtr;
 
 				}
 
-				WorkflowDetailTableInfo wdtf6 = new WorkflowDetailTableInfo();
-				wdtf6.setWorkflowRequestTableRecords(dtrs6);
+				WorkflowDetailTableInfo wdtf4 = new WorkflowDetailTableInfo();
+				wdtf4.setWorkflowRequestTableRecords(dtrs4);
 
 				// 只有2个子表单
-				WorkflowDetailTableInfo[] workflowDetailTableInfos = new WorkflowDetailTableInfo[6];
+				WorkflowDetailTableInfo[] workflowDetailTableInfos = new WorkflowDetailTableInfo[4];
 				workflowDetailTableInfos[0] = wdtf1;
 				workflowDetailTableInfos[1] = wdtf2;
 				workflowDetailTableInfos[2] = wdtf3;
 				workflowDetailTableInfos[3] = wdtf4;
-				workflowDetailTableInfos[4] = wdtf5;
-				workflowDetailTableInfos[5] = wdtf6;
 
 				requestInfo.setWorkflowDetailTableInfos(workflowDetailTableInfos);// 子表单信息
 			}

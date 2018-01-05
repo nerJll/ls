@@ -330,7 +330,7 @@ public class OAUtils_Send2 {
 					// 字段
 					WorkflowRequestTableField[] wrti = new WorkflowRequestTableField[30];
 					wrti[0] = new WorkflowRequestTableField();
-					wrti[0].setFieldName("nbzgdc_zrbm");// 主键
+					wrti[0].setFieldName("zrrd_zrbm");// 主键
 					wrti[0].setFieldValue("009");
 					// wrti[0].setFieldValue("3344");
 					wrti[0].setView(true);// 字段是否可见
@@ -341,57 +341,13 @@ public class OAUtils_Send2 {
 				}
 				WorkflowDetailTableInfo wdtf4 = new WorkflowDetailTableInfo();
 				wdtf4.setWorkflowRequestTableRecords(dtrs4);
-				// 子表单-2
-				WorkflowRequestTableRecord[] dtrs5 = new WorkflowRequestTableRecord[10];// aixuCustomDos.size()
-				for (int i = 0; i < 10; i++) {
-					Map<String, String> map = itemTable.get(i);
-					// 一行
-					WorkflowRequestTableRecord dtr = new WorkflowRequestTableRecord();
-					// 字段
-					WorkflowRequestTableField[] wrti = new WorkflowRequestTableField[30];
-					wrti[0] = new WorkflowRequestTableField();
-					wrti[0].setFieldName("nbzgxgyz_lx");// 主键
-					wrti[0].setFieldValue("009");
-					// wrti[0].setFieldValue("3344");
-					wrti[0].setView(true);// 字段是否可见
-					wrti[0].setEdit(true);// 字段是否可编辑
-					dtr.setWorkflowRequestTableFields(wrti);
-					dtrs5[i] = dtr;
-
-				}
-				WorkflowDetailTableInfo wdtf5 = new WorkflowDetailTableInfo();
-				wdtf5.setWorkflowRequestTableRecords(dtrs5);
-				// 子表单-2
-				WorkflowRequestTableRecord[] dtrs6 = new WorkflowRequestTableRecord[10];// aixuCustomDos.size()
-				for (int i = 0; i < 10; i++) {
-					Map<String, String> map = itemTable.get(i);
-					// 一行
-					WorkflowRequestTableRecord dtr = new WorkflowRequestTableRecord();
-					// 字段
-					WorkflowRequestTableField[] wrti = new WorkflowRequestTableField[30];
-					wrti[0] = new WorkflowRequestTableField();
-					wrti[0].setFieldName("nbzgdc_xh");// 主键
-					wrti[0].setFieldValue("009");
-					// wrti[0].setFieldValue("3344");
-					wrti[0].setView(true);// 字段是否可见
-					wrti[0].setEdit(true);// 字段是否可编辑
-
-					dtr.setWorkflowRequestTableFields(wrti);
-					dtrs6[i] = dtr;
-
-				}
-
-				WorkflowDetailTableInfo wdtf6 = new WorkflowDetailTableInfo();
-				wdtf6.setWorkflowRequestTableRecords(dtrs6);
 
 				// 只有2个子表单
-				WorkflowDetailTableInfo[] workflowDetailTableInfos = new WorkflowDetailTableInfo[6];
+				WorkflowDetailTableInfo[] workflowDetailTableInfos = new WorkflowDetailTableInfo[4];
 				workflowDetailTableInfos[0] = wdtf1;
 				workflowDetailTableInfos[1] = wdtf2;
 				workflowDetailTableInfos[2] = wdtf3;
 				workflowDetailTableInfos[3] = wdtf4;
-				workflowDetailTableInfos[4] = wdtf5;
-				workflowDetailTableInfos[5] = wdtf6;
 
 				requestInfo.setWorkflowDetailTableInfos(workflowDetailTableInfos);// 子表单信息
 			}

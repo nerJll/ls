@@ -72,7 +72,7 @@ public class TestController {
 	public ResultValue testOA() {
 		ResultValue rv = new ResultValue();
 		try {
-			OAUtils.sendOABaseInfo1("750","1548",null,null,null,null);
+			OAUtils.sendOABaseInfo1("755","1548",null,null,null,null);
 			return rv.success("触发OA成功", null); 
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -107,5 +107,10 @@ public class TestController {
 	@GetMapping("/testZrrd")
 	public String testZrrd() { 
 		return "test/send2";
+	}
+	
+	@GetMapping("/scan")
+	public String scan() {
+		return "test/scan"; 
 	}
 }

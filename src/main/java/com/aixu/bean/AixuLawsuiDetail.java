@@ -33,7 +33,7 @@ public class AixuLawsuiDetail implements java.io.Serializable {
 
 	private String resOne;
 
-	private String resTwo;
+	private String resTwo;	//备注
 
 	private String resThree;
 
@@ -49,7 +49,7 @@ public class AixuLawsuiDetail implements java.io.Serializable {
 
 	private String resNine;
 
-	private String resTen;
+	private String resTen;	//回传文件地址
 
 	public String getId() {
 		return id;

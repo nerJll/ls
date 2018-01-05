@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.aixu.bean.AixuBaseLawsuit;
@@ -73,6 +74,7 @@ public class CCBaseInfoService {
 	 * @param infoId
 	 * @return
 	 */
+	@Transactional
 	public boolean saveCcBaseInfo(AixuBaseLawsuit aixuBaseLawsuit, String infoId) {
 		if ("".equals(aixuBaseLawsuit.getLawsuitNo())) {
 			return false;
@@ -149,6 +151,7 @@ public class CCBaseInfoService {
 	 * @param aixuBaseLawsuit
 	 * @return
 	 */
+	@Transactional
 	public boolean saveAndSendOA1(AixuBaseLawsuit aixuBaseLawsuit) {
 		try {
 			BaseInfoDao.updateByPrimaryKeySelective(aixuBaseLawsuit);
@@ -165,6 +168,7 @@ public class CCBaseInfoService {
 	 * @param checkLA
 	 * @return
 	 */
+	@Transactional
 	public boolean updateOA1checkLA(String lawsuitId, String checkLA) {
 		try {
 			AixuBaseLawsuit baseInfo = BaseInfoDao.selectByPrimaryKey(lawsuitId);
@@ -178,6 +182,13 @@ public class CCBaseInfoService {
 		}
 	}
 
+	/**
+	 * @desc  更新状态
+	 * @param lawsuitId
+	 * @param state
+	 * @return
+	 */
+	@Transactional
 	public boolean updataState(String lawsuitId, String state) {
 		try {
 			AixuBaseLawsuit aixuBaseLawsuit =getBaseInfoById(lawsuitId);
@@ -188,5 +199,4 @@ public class CCBaseInfoService {
 			return false;
 		}
 	}
-
 }

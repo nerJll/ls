@@ -33,7 +33,7 @@ public class ZrrdService {
 		try {
 			for(int i=0; i<aixuZrrds.size(); i++) {
 				aixuZrrds.get(i).setZrrdId(IDUtils.getUuid(true));
-				aixuZrrds.get(i).setZrrdYl10("审批中");
+				aixuZrrds.get(i).setZrrdYl10("已完成推送");
 				aixuZrrdDao.insert(aixuZrrds.get(i));				//存储客户处理
 			}
 			return true;

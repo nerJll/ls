@@ -1,0 +1,108 @@
+<#assign ctx=request.contextPath />
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>客退</title>
+<meta name="renderer" content="webkit">   
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="${ctx}/ui/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/ui/bootstrap/css/bootstrap-select.min.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/ui/bootstrap/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/ui/bootstrap/css/fileinput.min.css">
+<link rel="stylesheet" href="${ctx}/css/ccbi/c2.css" media="all">
+</head>
+<body>
+	<!-- 标题头 -->
+	<div id='header' class="container-fluid">
+		<div class="layui-row">
+			<div class="col-md-6 col-xm-6">
+				<img src="${ctx}/images/lawsuit.png" width=30px height=30px>
+				背景信息
+			</div>
+		</div>
+	</div>
+
+
+	<!-- 体 -->
+	<div id='body' class='container'>
+		<form>
+		<!-- 一排 -->
+		<div class='row'>
+			<div class='col-md-3 col-xm-3'>
+					<label>发货批次号</label>
+					<input name='fhpch' type='text' class='form-control' 
+						 readonly>
+			</div>
+			<div class='col-md-3 col-xm-3'>
+					<label>发货日期</label>
+					<input name='fhrq' type='text' class='form-control' 
+						 readonly>
+			</div>
+			<div class='col-md-3 col-xm-3'>
+					<label>工厂</label>
+					<input name='zrgc' type='text' class='form-control' 
+						 readonly>
+			</div>
+			<div class='col-md-3 col-xm-3'>
+					<label>车间</label>
+					<input name='chejian' type='text' class='form-control' 
+						 readonly>
+			</div>
+		</div>
+		<br>
+		<!-- 二排 -->
+		<div class='row'>
+			<div class='col-md-3 col-xm-3'>
+					<label>线别</label>
+					<input name='xianbie' type='text' class='form-control' 
+						 readonly>
+			</div>
+			<div class='col-md-3 col-xm-3'>
+					<label>班次</label>
+					<input name='banci' type='text' class='form-control' 
+						 readonly>
+			</div>
+			<div class='col-md-3 col-xm-3'>
+					<label>库位</label>
+					<input name='kuwei' type='text' class='form-control' 
+						 readonly>
+			</div>
+		</div>
+		<br>
+		<!-- 三排 -->
+		<div class='row'>
+				<label>&nbsp;&nbsp;&nbsp;OQC检验报告</label>
+				<textarea 
+				name='oqcjybg'
+				rows="8" class='form-control' readonly></textarea>
+		</div>
+		<br>
+		<!-- 四排 -->
+		<div class='row'>
+				<label>&nbsp;&nbsp;&nbsp;产品生产阶段异常信息报告</label>
+				<textarea 
+				name='cpscjdycxxbg'
+				rows="8" class='form-control' readonly></textarea>
+		</div>
+		<br>
+		<!-- 五排 -->
+		<div class='row'>
+				<label>&nbsp;&nbsp;&nbsp;BOM</label>
+				<textarea 
+				name='bom'
+				rows="8" class='form-control' readonly></textarea>
+		</div>
+		</form>
+	</div>	
+	
+	<script type="text/javascript" src='${ctx}/js/jquery/jquery-3.2.1.min.js'></script>
+	<script type="text/javascript" src="${ctx}/ui/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('textarea[name=bom]').val(888)
+		})
+	</script>
+</body>
+</html>
