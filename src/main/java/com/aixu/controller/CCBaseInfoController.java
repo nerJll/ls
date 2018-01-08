@@ -1,9 +1,12 @@
 package com.aixu.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,13 +15,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.filechooser.FileSystemView;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +39,7 @@ import com.aixu.entity.ResultValue;
 import com.aixu.service.AixuCustomDoService;
 import com.aixu.service.BaseInfoDetailService;
 import com.aixu.service.CCBaseInfoService;
+import com.aixu.util.DateUtil;
 import com.aixu.util.IDUtils;
 import com.aixu.util.OAUtils;
 
@@ -51,6 +53,7 @@ import com.aixu.util.OAUtils;
 public class CCBaseInfoController {
 	private final static Logger logger = LoggerFactory.getLogger(CCBaseInfoController.class);
 	private static String fileName; // 文件名
+	private static int fileIndex = 1;
 	@Autowired
 	private CCBaseInfoService cCBaseInfoService;
 	@Autowired
@@ -98,7 +101,7 @@ public class CCBaseInfoController {
 					if (!"".equals(complainMounts[i])) {
 						aixuLawsuiDetail.setComplainMount(Integer.parseInt(complainMounts[i])); // 投诉数量
 					}
-					aixuLawsuiDetail.setProductDesc(productDescs[i].replaceAll("\n","<br>").replaceAll("\r","<br>")); // 产品内容描述
+					aixuLawsuiDetail.setProductDesc(productDescs[i].replaceAll("\n", "<br>").replaceAll("\r", "<br>")); // 产品内容描述
 					aixuLawsuiDetail.setBaseId(infoId); // 基本信息id
 					aixuLawsuiDetail.setId(IDUtils.getUuid(true)); // 表单id
 					aixuLawsuiDetail.setCreateTime(new Date()); // 创建时间
@@ -243,7 +246,7 @@ public class CCBaseInfoController {
 	}
 
 	/**
-	 * @desc  下载文件
+	 * @desc 下载文件
 	 * @param request
 	 * @param response
 	 * @param fileName
@@ -251,31 +254,70 @@ public class CCBaseInfoController {
 	 * @throws Exception
 	 */
 	@PostMapping("/uploadFile")
-	public ResponseEntity<byte[]> uploadFile(HttpServletRequest request, HttpServletResponse response,
+	@ResponseBody
+	public String uploadFile(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam("fileName") String fileName) throws Exception {
-		//下载项目里面的文件
-		/*System.out.println(fileName);
+		// 下载项目里面的文件
+		/*
+		 * System.out.println(fileName);
+		 * 
+		 * ClassLoader classLoader = CCBaseInfoService.class.getClassLoader(); URL
+		 * resource = classLoader.getResource("application.properties"); String path=
+		 * resource.getPath();
+		 * 
+		 * File filepath1 = new File(path); String patha = filepath1.getParent() +
+		 * "\\static\\files\\" + fileName;
+		 */
+
+		FileSystemView fsv = FileSystemView.getFileSystemView();
+		File com=fsv.getHomeDirectory();    //这便是读取桌面路径的方法了
 		
-		ClassLoader classLoader = CCBaseInfoService.class.getClassLoader();
-        URL resource = classLoader.getResource("application.properties");
-        String path= resource.getPath();
-         
-        File filepath1 = new File(path);
-        String patha = filepath1.getParent() + "\\static\\files\\" + fileName;*/
-		
-        
-		File file = new File(fileName);
-		byte[] body = null; 
-		InputStream is = new FileInputStream(file);
+		String urlStr = "http://pic4.nipic.com/20091217/3885730_124701000519_2.jpg";
+		URL urlfile = null;
+		HttpURLConnection httpUrl = null;
+		BufferedInputStream bis = null;
+		BufferedOutputStream bos = null;
+		File file = new File(
+				com + "\\文件" + fileIndex++ + urlStr.substring(urlStr.length() - 4, urlStr.length()));
+		try {
+			urlfile = new URL(urlStr);
+			httpUrl = (HttpURLConnection) urlfile.openConnection();
+			httpUrl.connect();
+			bis = new BufferedInputStream(httpUrl.getInputStream());
+			bos = new BufferedOutputStream(new FileOutputStream(file));
+			int len = 2048;
+			byte[] b = new byte[len];
+			while ((len = bis.read(b)) != -1) {
+				bos.write(b, 0, len);
+			}
+			bos.flush();
+			bis.close();
+			httpUrl.disconnect();
+			return file.getName() + " 已下载到桌面上";
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.info(DateUtil.getDateTimeFormat(new Date())+"文件已损坏或不存在");
+			return "文件已损坏或不存在";
+		} finally {
+			try {
+				bis.close();
+				bos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		/*File file1 = new File("C:\\Users\\Administrator\\Desktop\\file.jpg");
+		byte[] body = null;
+		InputStream is = new FileInputStream(file1);
 		body = new byte[is.available()];
 		is.read(body);
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Content-Disposition", "attchement;filename=" + file.getName());
+		headers.add("Content-Disposition", "attchement;filename=" + file1.getName());
 		response.addHeader("Content-Disposition",
 				"attachment;filename=" + new String(fileName.getBytes("utf-8"), "iso-8859-1"));
 		HttpStatus statusCode = HttpStatus.OK;
 		ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
-		is.close();
-		return entity;
+		is.close();*/
 	}
 }

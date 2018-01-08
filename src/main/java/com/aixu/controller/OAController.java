@@ -93,8 +93,9 @@ public class OAController {
 				// 处理客诉详情
 				for (int i = 0; i < detailsIds.length; i++) {
 					AixuLawsuiDetail aixuLawsuiDetail = baseInfoDetailService.getAixuLawsuitDetailById(detailsIds[i]);
-					aixuLawsuiDetail.setBadReason(badReasons[i].replaceAll("\n","<br>").replaceAll("\r","<br>"));
-					aixuLawsuiDetail.setInnerStrategy(innerStrategys[i].replaceAll("\n","<br>").replaceAll("\r","<br>"));
+					aixuLawsuiDetail.setBadReason(badReasons[i].replaceAll("\n", "<br>").replaceAll("\r", "<br>"));
+					aixuLawsuiDetail
+							.setInnerStrategy(innerStrategys[i].replaceAll("\n", "<br>").replaceAll("\r", "<br>"));
 					baseInfoDetailService.updateDetail(aixuLawsuiDetail);
 				}
 
@@ -131,8 +132,7 @@ public class OAController {
 	@PostMapping("/exam3")
 	@ResponseBody
 	@CrossOrigin("*")
-	public String exam3(@RequestParam("lawsuitId") String lawsuitId, 
-			@RequestParam("zrrdIds[]") String[] zrrdIds,
+	public String exam3(@RequestParam("lawsuitId") String lawsuitId, @RequestParam("zrrdIds[]") String[] zrrdIds,
 			@RequestParam("clyjs[]") String[] clyjs) {
 		try {
 			boolean hasUpdataState = cCBaseInfoService.updataState(lawsuitId, "阶段5-责任认定OA审批完成");
@@ -168,8 +168,7 @@ public class OAController {
 	@ResponseBody
 	@CrossOrigin("*")
 	public String exam4(@RequestParam("lawsuitId") String lawsuitId,
-			@RequestParam("customerIds[]") String[] customerIds,
-			@RequestParam("OQCjypds[]") String[] OQCjypds,
+			@RequestParam("customerIds[]") String[] customerIds, @RequestParam("OQCjypds[]") String[] OQCjypds,
 			@RequestParam("OQCpdjgs[]") String[] OQCpdjgs) {
 		try {
 			boolean hasUpdataState = cCBaseInfoService.updataState(lawsuitId, "阶段6-客户处理WMS审批完成");
@@ -195,9 +194,9 @@ public class OAController {
 			return "失败";
 		}
 	}
-	
+
 	/**
-	 * @desc  接收OA回传的wen文件,不通过form提交,数据来源：highcharts/test/uploadFile
+	 * @desc 接收OA回传的wen文件,不通过form提交,数据来源：highcharts/test/uploadFile
 	 * @param detailId
 	 * @param fileName
 	 * @param file
@@ -206,22 +205,25 @@ public class OAController {
 	@PostMapping("/uploadFile")
 	@ResponseBody
 	@CrossOrigin("*")
-	public String oaUploadFile(@RequestParam("detailId")String detailId,
-			@RequestParam("filePath")String filePath
-			//@RequestParam("file") MultipartFile file
-			){
+	public String oaUploadFile(@RequestParam("detailIds[]") String[] detailIds,
+			@RequestParam("filePaths[]") String[] filePaths
+	// @RequestParam("file") MultipartFile file
+	) {
 		try {
-			//存储文件
-			//String filePath = cCBaseInfoService.SaveFile(file, fileName) + ",";
-			//存储文件名
-			AixuLawsuiDetail aixuLawsuiDetail = baseInfoDetailService.getAixuLawsuitDetailById(detailId);
-			//判断是否有文件名
-			String resTen = ("").equals(aixuLawsuiDetail.getResTen())||
-					aixuLawsuiDetail.getResTen() == null?"":aixuLawsuiDetail.getResTen();
-			aixuLawsuiDetail.setResTen(resTen + filePath + ",");
-			baseInfoDetailService.updateDetail(aixuLawsuiDetail);
+			// 存储文件
+			// String filePath = cCBaseInfoService.SaveFile(file, fileName) + ",";
+			// 存储文件名
+			for (int i = 0; i < detailIds.length; i++) {
+				AixuLawsuiDetail aixuLawsuiDetail = baseInfoDetailService.getAixuLawsuitDetailById(detailIds[i]);
+				// 判断是否有文件名
+				String resTen = ("").equals(aixuLawsuiDetail.getResTen()) || aixuLawsuiDetail.getResTen() == null ? ""
+						: aixuLawsuiDetail.getResTen();
+				aixuLawsuiDetail.setResTen(resTen + filePaths[i] + ",");
+				baseInfoDetailService.updateDetail(aixuLawsuiDetail);
+			}
+
 			return "文件存储成功";
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			logger.info("OA回传文件存储失败");
 			return "文件存储失败";

@@ -192,8 +192,27 @@ function upload(fileName){
 	fileName = fileName.replace('/','\\')
 	//console.log(fileName)
 	var url = '${ctx}/ccbaseinfo/uploadFile'
-	var form = $("<form></form>").attr("action", url).attr("method", "post")
+	$.ajax({
+		url: url,
+		type: 'post',
+		data: {
+			'fileName':fileName
+		},
+		beforeSend: function () {
+	    	$.bootstrapLoading.start({ loadingTips: "" })
+	        // 禁用按钮防止重复提交
+	        //$("#submit").attr({ disabled: "disabled" });
+	    },
+		success: function(data){
+			alert(data)
+		},
+		complete: function () {
+	    	 $.bootstrapLoading.end()
+	        //$("#submit").removeAttr("disabled");
+	    }
+	})
+	/* var form = $("<form></form>").attr("action", url).attr("method", "post")
 	form.append($("<input></input>").attr("type", "hidden").attr("name", "fileName").attr("value", fileName))
-	form.appendTo('body').submit().remove()
+	form.appendTo('body').submit().remove() */
 }
 </script>
