@@ -107,7 +107,7 @@
 	<script type="text/javascript" src='${ctx}/js/scan/sha1.js'></script>
 	<script type="text/javascript">
 		$(function(){
-			//$('textarea[name=bom]').val(888)
+			$('textarea[name=bom]').val(888)
 		})
 		
 		var appId = ''
@@ -167,6 +167,16 @@
 					        	$('textarea[name=bom]').val(data.data[0].boms)		//信息报告
 			        		}
 			        	})
+			        	/* $('input[name=fhpch]').val(data)
+			        	$('input[name=fhrq]').val('2018-01-01')
+			        	$('input[name=zrgc]').val('浙江爱旭')
+			        	$('input[name=chejian]').val('98')
+			        	$('input[name=xianbie]').val('12')
+			        	$('input[name=banci]').val('A')
+			        	$('input[name=kuwei]').val('MS-1')
+			        	$('textarea[name=oqcjybg]').val('有我呢体是疯狂的世界\r的积分函数')
+			        	$('textarea[name=bom]').val('撒地方尽快手机发卡j\r速度JFK士大夫')
+			        	$('textarea[name=cpscjdycxxbg]').val('收到回复的看手机覅决定是否\r带上飞机设计') */
 			        }
 			      })
 			  }

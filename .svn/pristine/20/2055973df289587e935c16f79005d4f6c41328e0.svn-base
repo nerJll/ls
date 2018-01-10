@@ -107,7 +107,7 @@
 	<script type="text/javascript" src='${ctx}/js/scan/sha1.js'></script>
 	<script type="text/javascript">
 		$(function(){
-			//$('textarea[name=bom]').val(888)
+			$('textarea[name=bom]').val(888)
 		})
 		
 		var appId = ''
@@ -156,17 +156,31 @@
 			        		type: 'get',
 			        		success: function(data){
 			        			$('input[name=fhpch]').val(data1)		//批次号
-					        	$('input[name=fhrq]').val(data.data[0].bldat)	//发货日期
-					        	$('input[name=zrgc]').val(data.data[0].werks == '1000'?'广东爱旭':'浙江爱旭')
+					        	$('input[name=fhrq]').val(data.data.bldat)	//发货日期
+					        	if(data.data.werks == '1000'){
+					        		$('input[name=zrgc]').val('广东爱旭')
+					        	}else{
+					        		$('input[name=zrgc]').val('浙江爱旭')
+					        	}
 					        	//$('input[name=chejian]').val('98')		//车间
 					        	//$('input[name=xianbie]').val('12')		//线别
 					        	//$('input[name=banci]').val('A')			//班次
-					        	$('input[name=kuwei]').val(data.data[0].lgort)		//库位
+					        	$('input[name=kuwei]').val(data.data.lgort)		//库位
 					        	//$('textarea[name=oqcjybg]').val('有我呢体是疯狂的世界\r的积分函数')	//OQC报告
-					        	//$('textarea[name=cpscjdycxxbg]').val(data.data[0].boms)	//BOM
-					        	$('textarea[name=bom]').val(data.data[0].boms)		//信息报告
+					        	//$('textarea[name=bom]').val('撒地方尽快手机发卡j\r速度JFK士大夫')		//信息报告
+					        	$('textarea[name=cpscjdycxxbg]').val(data.data.boms)	//BOM
 			        		}
 			        	})
+			        	/* $('input[name=fhpch]').val(data)
+			        	$('input[name=fhrq]').val('2018-01-01')
+			        	$('input[name=zrgc]').val('浙江爱旭')
+			        	$('input[name=chejian]').val('98')
+			        	$('input[name=xianbie]').val('12')
+			        	$('input[name=banci]').val('A')
+			        	$('input[name=kuwei]').val('MS-1')
+			        	$('textarea[name=oqcjybg]').val('有我呢体是疯狂的世界\r的积分函数')
+			        	$('textarea[name=bom]').val('撒地方尽快手机发卡j\r速度JFK士大夫')
+			        	$('textarea[name=cpscjdycxxbg]').val('收到回复的看手机覅决定是否\r带上飞机设计') */
 			        }
 			      })
 			  }
